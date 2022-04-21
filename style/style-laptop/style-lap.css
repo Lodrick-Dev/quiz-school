@@ -1,3 +1,129 @@
+:root{
+    --bgcolor: #CA9AFA;
+    --colorfooter: #610353;
+    --colored: #F70552;
+    --autrecolor: #E007C0;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+  list-style: none;
+  text-decoration: none;
+  color: var(--bgcolor);
+}
 body{
-    background: rgb(185, 128, 128);
+    background: var(--bgcolor);
+}
+header{
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+}
+header > #box-logo-n-title {
+    width: 30%;
+    display: flex;
+    align-items: flex-end;
+    padding: 5px 10px;
+    /* background: #F70552; */
+}
+header > #box-logo-n-title > h2{
+    color: #610353;
+}
+header > #box-logo-n-title > a{
+    display: block;
+    height: 100%;
+}
+header > #box-logo-n-title > a > img{
+    /* display: block; */
+    margin-right: 20px;
+    height: 100%;
+}
+header > #box-nav{
+    /* background: #F70552; */
+    width: 30%;
+}
+header > #box-nav > ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 100%;
+    /* background: #CA9AFA; */
+}
+header > #box-nav > ul > a{
+    display: block;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background: var(--colorfooter);
+}
+/*******************fin du header*/
+/*******************début main accueil*/
+main{
+    width: 80%;
+    /* background: #610353; */
+    margin: 10px auto;
+    padding: 25px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+main > div{
+    padding: 10px;
+    margin: 10px;
+    width: 40%;
+    border-radius: 5px;
+    background: var(--colored);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+main > div > img{
+    width: 45%;
+}
+main > div > #img-first{
+    width: 65% !important;
+}
+/*******************fin main accueil*/
+/*******************début connexion*/
+#section-connect > h1{
+    text-align: center;
+    border-radius: 3px;
+    margin: 40px auto 10px;
+    width: 20%;
+    color: var(--colorfooter);
+    padding: 5px 15px;
+    background: var(--autrecolor);
+}
+#section-connect > form{
+    width: 40%;
+    background: #ddc8f3;
+}
+/********************debut footer*/
+footer{
+    height: 20vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background: var(--colorfooter);
+}
+footer > ul {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+footer > div{
+    height: 100%;
+}
+footer > div > a{
+    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+footer > div > a > img{
+    display: block;
+    height: 80%;
 }

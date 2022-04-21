@@ -1,17 +1,15 @@
 <header>
         <div id="box-logo-n-title">
             <a href="">
-                <img src="" alt="" srcset="">
+                <img src="../file/logo/icons-g2dc4add94_640.png" alt="" srcset="">
             </a>
             <h2>QUIZ-SCHOOL</h2>
         </div>
-        <div id="box-nav">
-            <nav>
-                <ul>
-                    <a href=""><li>Accueil</li></a>
-                    <a href=""><li>A propos</li></a>
-                    <a href=""><li>Compte</li></a>
-                </ul>
-            </nav>
-        </div>
+        <nav id="box-nav">
+            <ul>
+                <a href="/"><li>Accueil</li></a>
+                <a href=""><li>A propos</li></a>
+                <a href="../connexion.php"><li>Compte</li></a>
+            </ul>
+        </nav>
 </header>
