@@ -1,5 +1,5 @@
 <?php
-$titre_web = "QUIZ-SCHOLL - Accueil";
+$titre_web = "QUIZ-SCHOOLL - Accueil";
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
 ?>

@@ -1,5 +1,5 @@
 <?php
-$titre_web = "QUIZ-SCHOLL - Accueil";
+$titre_web = "Connexion - Quiz-School";
 require_once "./function/thefunctions.php";
 require_once "./treat/to-connexion.php";
 if(isset($_POST['connect-me'])){
@@ -17,8 +17,11 @@ require_once "./includ-global/nav.php";
         <div>
             <input type="password" placeholder="Mot de passe">
         </div>
-        <div>
+        <div id="btn-sub-connect">
             <input type="submit" value="Connexion" name="connect-me">
+        </div>
+        <div id="box-link-to-sub-on-connect-page">
+            <a href="./inscription.php">Pas de compte ? S'inscrire</a>
         </div>
     </form>
 </section>

@@ -2,6 +2,7 @@
     --bgcolor: #CA9AFA;
     --colorfooter: #610353;
     --colored: #F70552;
+    --colorcards: #AD0594;
     --autrecolor: #E007C0;
 }
 *{
@@ -86,6 +87,9 @@ main > div > #img-first{
 }
 /*******************fin main accueil*/
 /*******************début connexion*/
+#section-connect{
+    padding: 50px;
+}
 #section-connect > h1{
     text-align: center;
     border-radius: 3px;
@@ -96,9 +100,572 @@ main > div > #img-first{
     background: var(--autrecolor);
 }
 #section-connect > form{
-    width: 40%;
+    width: 35%;
+    margin: 10px auto;
+    background: #ddc8f3;
+    border-radius: 5px;
+    padding: 25px 10px 35px;
+}
+#section-connect > form > div{
+    margin: 25px auto 0px;
+    width: 65%;
+    /* background: #610353; */
+}
+#section-connect > form > div > input{
+    padding: 5px;
+    width: 100%;
+    font-size: 1.1em;
+    border: none;
+    background: var(--bgcolor);
+    outline: none;
+    border-radius: 3px;
+    color: var(--colorfooter);
+}
+#section-connect > form > #btn-sub-connect{
+    margin-top: 70px;
+    /* margin-bottom: 70px; */
+    width: 30%;
+    background: none;
+}
+#section-connect > form > #btn-sub-connect > input{
+    border-radius: 5px;
+    cursor: pointer;
+    background: var(--colorfooter);
+    color: var(--bgcolor);
+    font-weight: bold;
+}
+#section-connect > form > #box-link-to-sub-on-connect-page{
+    margin: 5px auto 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#section-connect > form > #box-link-to-sub-on-connect-page > a{
+    display: block;
+    font-size: 0.8em;
+    color: var(--colorfooter);
+    text-align: center;
+}
+/*****************************fin connexion*/
+/*****************************début inscript*/
+#section-inscription{
+    padding: 50px;
+}
+#section-inscription > h1{
+    text-align: center;
+    border-radius: 3px;
+    margin: 40px auto 10px;
+    width: 20%;
+    color: var(--colorfooter);
+    padding: 5px 15px;
+    background: var(--autrecolor);
+}
+#section-inscription > form{
+    width: 35%;
+    margin: 10px auto;
+    background: #ddc8f3;
+    border-radius: 5px;
+    padding: 25px 10px 35px;
+}
+#section-inscription > form > div{
+    margin: 25px auto 0px;
+    width: 65%;
+}
+#section-inscription > form > div > input{
+    padding: 5px;
+    width: 100%;
+    font-size: 1.1em;
+    border: none;
+    background: var(--bgcolor);
+    outline: none;
+    border-radius: 3px;
+    color: var(--colorfooter);
+}
+#section-inscription > form > #btn-sub-inscript{
+    margin-top: 70px;
+    /* margin-bottom: 70px; */
+    width: 30%;
+    background: none;
+}
+#section-inscription > form > #btn-sub-inscript > input{
+    border-radius: 5px;
+    cursor: pointer;
+    background: var(--colorfooter);
+    color: var(--bgcolor);
+    font-weight: bold;
+}
+#section-inscription > form > #box-link-to-sub-on-inscript-page{
+    margin: 5px auto 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#section-inscription > form > #box-link-to-sub-on-inscript-page > a{
+    display: block;
+    font-size: 0.8em;
+    color: var(--colorfooter);
+    text-align: center;
+}
+/*****************************fin inscript*/
+/*****************************début dashboard*/
+#section-dashboard{
+    padding: 50px 30px 30px;
+}
+#section-dashboard > h1{
+    text-align: center;
+    color: var(--colorfooter);
+}
+#box-card-from-dash{
+    padding: 10px;
+    width: 95%;
+    /* background: #ddc8f3; */
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash{
+    position: relative;
+    padding: 10px;
+    border-radius: 5px;
+    width: 30%;
+    background: var(--colorcards);
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash > #card-quest > h1{
+    text-align: center;
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash > #card-profil-from-dash{
+    background: var(--colorfooter);
+    width: 95%;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px auto;
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash > #card-profil-from-dash > h1{
+    text-align: center;
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash > .info-card-profil{
+    width: 100%;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash > .info-card-profil > span{
+    margin-bottom: 3px;
+}
+#section-dashboard > #box-card-from-dash >  .card-from-dash>.info-card-profil > img{
+    display: block;
+    margin: 5px auto;
+    padding: 5px;
+    width: 30%;
+    border-radius: 50%;
+}
+#section-dashboard > #box-card-from-dash >  .card-from-dash > #btn-to-edit-profil{
+    display: block;
+    text-align: center;
+    border-radius: 50px;
+    margin: 35px auto 5px;
+    padding: 5px;
+    width: 45%;
+    background: var(--colored);
+}
+#section-dashboard > #box-card-from-dash >  .card-from-dash > #btn-to-edit-profil > i{
+    display: block;
+    text-align: center;
+    pointer-events: none;
+    font-size: 1.5em;
+}
+/*fin profil*/
+/*début questionnaire*/
+#section-dashboard > #box-card-from-dash > .card-from-dash > #card-quest {
+    background: var(--colorfooter);
+    width: 95%;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px auto 25px;
+}
+
+#section-dashboard > #box-card-from-dash > .card-from-dash > #filter-from-dash-card-quest{
+    background: #610353;
+    width: 25%;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 35px auto 10px
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash > #filter-from-dash-card-quest > select{
+    width: 100%;
+    display: block;
+    padding: 5px;
+    background: var(--colorfooter);
+    outline: none;
+    border: none;
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash > #display-catch-data > .t-card{
+    padding: 10px 5px;
+    background: var(--bgcolor);
+    border-radius: 5px;
+}
+.box-theme-with-data > span,
+.box-theme-with-data > strong {
+    color: var(--colorfooter);
+}
+.link-watch-plus{
+    display: block;
+    width: 50%;
+    text-align: center;
+    margin: 5px auto;
+    border-radius: 10px;
+    color: var(--bgcolor);
+    background: var(--colored);
+    padding: 5px 10px;
+}
+.box-descript-with-data{
+    padding: 5px;
+}
+.box-descript-with-data > p{
+    color: var(--colorfooter);
+}
+#link-new-quiz-creat{
+    position: absolute;
+    display: block;
+    border-radius: 5px;
+    text-align: center;
+    background: var(--colored);
+    padding: 10px;
+    width: 50%;
+    bottom: 0px;
+    right: 50%;
+    transform: translate(50%, 50%);
+}
+/*fin questionnaire*/
+/*début participé*/
+#section-dashboard > #box-card-from-dash > .card-from-dash > #card-did{
+    background: var(--colorfooter);
+    width: 95%;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px auto 25px;
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash > #card-did > h1{
+    text-align: center;
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash > .legend-theme-score{
+    padding: 5px 10px;
+    width: 98%;
+    margin: 35px auto 10px;
+    background: var(--colorfooter);
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash > #barre-bottom{
+    background: var(--bgcolor);
+    width: 30%;
+    margin:0px auto 25px;
+    height: 5px;
+    border-radius: 10px;
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash > #box-centent-them-score > .box-info-particip{
+    background: var(--bgcolor);
+    border-radius: 3px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash > #box-centent-them-score > .box-info-particip > strong{
+    color: var(--colorfooter);
+}
+/*fin participé*/
+/*****************************fin dashboard*/
+/****************************début edit profil*/
+#section-edit-profil{
+    padding: 20px;
+}
+#section-edit-profil > a{
+    padding: 20px;
+    color: var(--colorfooter);
+}
+#section-edit-profil > h1{
+    text-align: center;
+    color: var(--colorfooter);
+}
+#section-edit-profil > form{
+    width: 50%;
+    background:#ddc8f3;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 10px;
+}
+#section-edit-profil > form > .edit-card-profil > img{
+    display: block;
+    width: 20%;
+    margin: 5px auto;
+}
+#section-edit-profil > form > .edit-card-profil > input{
+    display: block;
+    text-align: center;
+    margin: 0px auto;
+    color: var(--colorfooter);
+}
+#box-champs-edit-pro{
+    padding: 10px;
+    width: 50%;
+    margin: 5px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#box-champs-edit-pro > a{
+    color: var(--colorfooter);
+    margin: 15px auto;
+}
+#box-champs-edit-pro > div {
+    margin-bottom: 10px;
+}
+#box-champs-edit-pro > div > label{
+    color: var(--colorfooter);
+}
+#box-champs-edit-pro > div > input{
+    width: 100%;
+    outline: none;
+    background: var(--bgcolor);
+    outline: none;
+    border: none;
+    padding: 3px;
+    font-size: 1.1em;
+    color: var(--colorfooter);
+    border-radius: 3px;
+}
+#box-champs-edit-pro > div > textarea{
+    width: 100%;
+    outline: none;
+    background: var(--bgcolor);
+    outline: none;
+    border: none;
+    padding: 3px;
+    font-size: 1.5em;
+    color: var(--colorfooter);
+    border-radius: 3px;
+    resize: none;
+}
+#btn-sub-edit-profil{
+    display: block;
+    padding: 5px !important;
+    cursor: pointer;
+    width: 35% !important;
+    margin: 0px auto !important;
+    background: var(--colored) !important;
+    color: var(--bgcolor) !important;
+}
+/****************************fin edit profil*/
+/****************************début votre questionnaire*/
+#display-questionnary {
+    padding: 30px;
+    margin: 55px 0px;
+}
+#display-questionnary > a {
+    color: var(--colorfooter);
+}
+#display-questionnary > h1{
+    text-align: center;
+    font-size: 2em;
+    color: var(--colorfooter);
+}
+#box-questionnary-display{
+    width: 80%;
+    padding: 20px;
+    margin: 15px auto;
+    background: var(--colorcards);
+    border-radius: 5px;
+}
+#box-questionnary-display > .box-boucl{
+    background: var(--bgcolor);
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    margin: 5px auto;
+}
+#box-questionnary-display > .box-boucl > .box-quest > p{
+    font-size: 1.3em;
+    color: var(--colorfooter);
+}
+.answer{
+    padding: 10px;
+    width: 70%;
+    margin: 5px auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+.answer > span{
+    color: var(--colorfooter);
+    font-size: 1.3em;
+}
+#box-link-on-simul{
+    width: 80%;
+    padding: 10px;
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-around;
+}
+#box-link-on-simul > a{
+    padding: 10px;
+    border-radius: 5px;
+    background: var(--colorfooter);
+    font-weight: bold;
+}
+#box-link-on-simul > a:nth-child(2){
+    background: var(--colored);
+    color: var(--colorfooter);
+    font-weight: bold;
+}
+/****************************fin votre questionnaire*/
+/****************************début update questionnaire*/
+#section-edit-questions{
+    padding: 20px;
+    margin: 10px 0px;
+}
+#section-edit-questions > h1{
+    text-align: center;
+    color: var(--colorfooter);
+}
+#section-edit-questions > a{
+    text-align: center;
+    color: var(--colorfooter);
+}
+#section-edit-questions > #link-cancel{
+    display: block;
+    text-align: center;
+    margin: 10px auto;
+    width: 8%;
+    border-radius: 5px;
+    color: var(--colorfooter);
+    background: #ddc8f3;
+    padding: 5px;
+}
+#box-glob-questions{
+    padding: 20px;
+    width: 80%;
+    margin: 5px auto;
+}
+#box-glob-questions > form{
+    width: 50%;
+    margin: 0px auto;
+    border-radius: 5px;
+    padding: 20px;
+    background: var(--colorcards);
+}
+#separe-in-form-edit-questions{
+    width: 50%;
+    height: 5px;
+    margin: 10px auto;
+    border-radius: 10px;
     background: #ddc8f3;
 }
+#box-glob-questions > form > .box-them-edit-quest{
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+    width: 80%;
+}
+#box-glob-questions > form > .box-them-edit-quest > textarea{
+    /* width: 100%; */
+    outline: none;
+    background: var(--bgcolor);
+    outline: none;
+    border: none;
+    padding: 3px;
+    font-size: 1.5em;
+    color: var(--colorfooter);
+    border-radius: 3px;
+    resize: none;
+    height: 100px;
+}
+#box-glob-questions > form > .box-them-edit-quest > input{
+    font-size: 1.3em;
+    color: var(--colorfooter);
+    border: none;
+    padding: 3px;
+    border-radius: 3px;
+    outline: none;
+    background: var(--bgcolor);
+}
+#box-glob-questions > form > .box-them-edit-quest > .nm-ber-quest{
+    width: 13%;
+}
+#box-btn-sub-edit-questions{
+    margin: 20px auto;
+    width: 50%;
+}
+#box-btn-sub-edit-questions > input{
+    display: block;
+    border: none;
+    margin: 0px auto;
+    font-size: 1.3em;
+    width: 40%;
+    background: var(--bgcolor);
+    padding: 5px;
+    border-radius: 5px;
+    color: var(--colorfooter);
+}
+/****************************fin update questionnaire*/
+/*****************************début quiz simulation*/
+#section-quiz-simulation{
+    padding: 20px;
+}
+#section-quiz-simulation > h1{
+    text-align: center;
+    font-size: 2em;
+    color: var(--colorfooter);
+}
+#section-quiz-simulation > a{
+    /* text-align: center; */
+    font-size: 1em;
+    color: var(--colorfooter);
+}
+#section-quiz-simulation > .stop-cancel{
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1em;
+    color: var(--colorfooter);
+}
+#box-simulation-live > form{
+    width: 70%;
+    margin: 5px auto;
+    padding: 20px;
+    border-radius: 5px;
+    background: #610353;
+}
+#box-simulation-live > form > h2{
+    background: var(--bgcolor);
+    width: 20%;
+    margin: 0px auto;
+    padding: 10px;
+    border-radius: 5px;
+    color: var(--colorfooter);
+}
+#box-simulation-live > form > p{
+    padding: 10px;
+    width: 70%;
+    margin: 10px auto;
+}
+#box-glob-of-div-n-input > div{
+    margin-top: 10px;
+}
+#box-simulation-live > form > #btn-to-simul-val{
+    display: flex;
+    justify-content: right;
+}
+#box-simulation-live > form > #btn-to-simul-val > input{
+    border: none;
+    border-radius: 3px;
+    margin: 10px;
+    padding: 5px;
+    width: 10%;
+    text-align: center;
+    font-size: 1.3em;
+}
+/*****************************fin quiz simulation*/
 /********************debut footer*/
 footer{
     height: 20vh;
