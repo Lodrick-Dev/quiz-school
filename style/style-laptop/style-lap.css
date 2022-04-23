@@ -666,6 +666,169 @@ main > div > #img-first{
     font-size: 1.3em;
 }
 /*****************************fin quiz simulation*/
+/******************************début creat question*/
+#section-creat-quiz{
+    padding: 30px;
+}
+#section-creat-quiz > h1{
+    color: var(--colorfooter);
+    text-align: center;
+}
+#section-creat-quiz > a{
+    color: var(--colorfooter);
+}
+#section-creat-quiz > #link-cancel{
+    display: block;
+    width: 10%;
+    color: var(--colorfooter);
+    text-align: center;
+    padding: 5px;
+    border-radius: 3px;
+    background:#ddc8f3;
+    margin: 5px auto 0px;
+}
+#box-glob-creat-questions{
+    padding: 15px;
+    width: 80%;
+    margin: 5px auto;
+}
+#box-glob-creat-questions > #box-to-form-select-numb{
+    width: 20%;
+    margin: 0px auto;
+    /* background: var(--colorfooter); */
+}
+#box-glob-creat-questions > #box-to-form-select-numb > form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    justify-content: center;
+}
+#box-glob-creat-questions > #box-to-form-select-numb > form > label{
+    color: var(--colorfooter);
+    padding: 5px;
+}
+#box-glob-creat-questions > #box-to-form-select-numb > form > select,
+#box-glob-creat-questions > #box-to-form-select-numb > form > input,
+#box-glob-creat-questions > #box-to-form-select-numb > form > select > option{
+    color: var(--colorfooter);
+    margin: 0px 5px;
+    padding: 5px;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    font-weight: bold;
+}
+#box-glob-creat-questions > form{
+    width: 50%;
+    background: var(--colorfooter);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 0px auto;
+}
+#box-glob-creat-questions > form > .box-creat-them-quest{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    width: 35%;
+}
+#box-glob-creat-questions > form > .box-creat-them-quest > input{
+    padding: 3px;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    font-size: 1.2em;
+    color: var(--colorfooter);
+}
+#box-glob-creat-questions > form > .box-creat-descrip-quest{
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    margin-top: 15px;
+}
+#box-glob-creat-questions > form > .box-creat-descrip-quest > textarea{
+    resize: none;
+    padding: 3px;
+    border-radius: 3px;
+    outline: none;
+    font-size: 1.3em;
+    color: var(--colorfooter);
+    background: var(--bgcolor);
+}
+#box-glob-creat-questions > form > .box-creat-quest{
+    width: 80%;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+#box-glob-creat-questions > form > #separe-in-form-creat-questions{
+    width: 30%;
+    margin: 10px auto;
+    height: 5px;
+    background: var(--bgcolor);
+    border-radius: 50px;
+}
+#box-glob-creat-questions > form > .box-creat-quest > input{
+    padding: 3px;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    font-size: 1.2em;
+    color: var(--colorfooter);
+}
+#box-glob-creat-questions > form > .box-creat-quest > .nm-ber-quest{
+    width: 13%;
+}
+#box-glob-creat-questions > form > #box-btn-sub-creat-questions{
+    margin-top: 25px;
+    padding: 10px;
+}
+#box-glob-creat-questions > form > #box-btn-sub-creat-questions > input{
+    display: block;
+    margin: 0px auto;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    color: var(--colorfooter);
+}
+/******************************fin creat question*/
+/***********************************début de end-simulation*/
+#section-end-simulation{
+    padding: 30px;
+}
+#section-end-simulation > h1{
+    text-align: center;
+    font-size: 2.3em;
+    color: var(--colorfooter);
+}
+#section-end-simulation > #box-card-end-to-simulation{
+    width: 50%;
+    margin: 5px auto;
+    border-radius: 5px;
+    padding: 15px;
+    background: var(--colorfooter);
+}
+#section-end-simulation > #box-card-end-to-simulation > h2{
+    text-align: center;
+    margin-bottom: 10px;
+}
+#section-end-simulation > #box-card-end-to-simulation > #box-card-to-them-simulation,
+#section-end-simulation > #box-card-end-to-simulation > #box-card-to-score-simulation{
+    padding: 10px 0px;
+}
+#section-end-simulation > #box-card-end-to-simulation > #box-card-to-img-profil > img{
+    display: block;
+    margin: 5px auto;
+    width: 30%;
+    background: #CA9AFA;
+    border-radius: 200px;
+}
+#section-end-simulation > #box-card-end-to-simulation > #box-card-to-img-profil > a{
+    display: block;
+    text-align: right;
+    margin: 15px 0px;
+}
+/***********************************fin de end-simulation*/
 /********************debut footer*/
 footer{
     height: 20vh;
