@@ -1,11 +1,13 @@
 <?php
+session_start();
 $titre_web = "Dashboard - QUIZ-SCHOOL";
 
-require_once "./function/thefunctions.php";
 require_once "./treat/to-connexion.php";
 
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
+var_dump($_SESSION['user-connect']);
+
 ?>
 <section id="section-dashboard">
     <h1>TABLEAU DE BORD</h1>
@@ -19,15 +21,19 @@ require_once "./includ-global/nav.php";
             </div>
             <div class="info-card-profil">
                 <span>Nom :</span>
-                <strong>Lorem</strong>
+                <strong><?=isset($_SESSION['user-connect']) && $_SESSION["user-connect"]["nom"] == null ? "Non défini" : $_SESSION["user-connect"]["nom"] ?></strong>
             </div>
             <div class="info-card-profil">
                 <span>Prénom :</span>
-                <strong>Lorem</strong>
+                <strong><?=isset($_SESSION['user-connect']) && $_SESSION["user-connect"]["prenom"] == null ? "Non défini" : $_SESSION["user-connect"]["prenom"] ?></strong>
+            </div>
+            <div class="info-card-profil">
+                <span>Pseudo :</span>
+                <strong><?=isset($_SESSION['user-connect']) && $_SESSION["user-connect"]["pseudo"] == null ? "Non défini" : $_SESSION["user-connect"]["pseudo"] ?></strong>
             </div>
             <div class="info-card-profil">
                 <span>Email :</span>
-                <strong>Lorem@gmail.com</strong>
+                <strong><?=isset($_SESSION['user-connect']) && $_SESSION["user-connect"]["mail"] == null ? "Non défini" : $_SESSION["user-connect"]["mail"] ?></strong>
             </div>
             <div class="info-card-profil">
                 <span>Mot de passe :</span>
@@ -35,7 +41,11 @@ require_once "./includ-global/nav.php";
             </div>
             <div class="info-card-profil">
                 <span>Biographie :</span>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores repellat et ipsa quia nam quisquam earum.</p>
+                <p><?=isset($_SESSION['user-connect']) && $_SESSION["user-connect"]["bio"] == null ? "Pas de bio défini" : $_SESSION["user-connect"]["bio"] ?></p>
+            </div>
+            <div class="info-card-profil">
+                <span>Inscript depuis :</span>
+                <p><?=isset($_SESSION['user-connect']) && $_SESSION["user-connect"]["date"] == null ? "Non défini" : $_SESSION["user-connect"]["date"] ?></p>
             </div>
             <a href="./edit-profil.php" id="btn-to-edit-profil">
                 Modifier mon profil

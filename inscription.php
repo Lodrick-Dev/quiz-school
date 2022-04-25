@@ -1,36 +1,38 @@
 <?php
 session_start();
+require_once "./includ-global/connectdatabase.php";
 $titre_web = "Inscription - Quiz-School";
+
 require_once "./treat/to-connexion.php";
+require_once "./function/functions.php";
 
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
-// $_SESSION['msgErr'] = 0;
-// if($_SESSION['msgErr'] == 0){
-    //     $msgErreur = "";
-    // }
-    // $msgErreur = "";
-    // $msgErreur ="";
-    require_once "./function/functions.php";
-    if(isset($_POST['inscript-me'])){
-        // $_SESSION['msgErr'] = 1;
-        // require_once "./function/functions.php";
-    echo "ehheheh";
-    // $msgErreur = "ah ah";
-    checkMdp();
+if(isset($_POST['inscript-me'])){
+    $newPseudo =strip_tags(htmlspecialchars($_POST['pseudo-inscription']));
+    $newMail =strip_tags(htmlspecialchars($_POST['mail-inscription']));
+    $newPassWord = $_POST['password-inscription'];
+    $newConfirmePass = $_POST['conf-pass-inscription'];
+//    checkMdp();
+   $msgErreur = checkMdp($newPseudo, $newMail, $newPassWord, $newConfirmePass, $db);
 }
-var_dump($_SESSION['msgErr']);
+var_dump($newPassWord);
+echo $newPassWord;
+var_dump($newConfirmePass);
+var_dump($_SESSION['user-connect']);
 ?>
 <section id="section-inscription">
 <h1>INSCRIPTION</h1>
+        <?php
+        // if(isset($msgErreur)){echo $msgErreur;var_dum($msgErreur);}
+        ?>
     <form action="" method="post">
-        <?php echo $msgErreur?>
-        <?php echo isset($msgErreur) ? $msgErreur : ""?>
+        <span class="msg-to-user-form"><?= isset($msgErreur) ? $msgErreur : ""?></span>
         <div>
-            <input type="text" placeholder="Pseudo"  name ="pseudo-inscription" value="<?=$msgErreur?>">
+            <input type="text" placeholder="Pseudo"  name ="pseudo-inscription" value="<?=isset($newPseudo) ? $newPseudo : ""?>" autocomplete ="off">
         </div>
         <div>
-            <input type="email" name ="mail-inscription" placeholder="Adresse mail">
+            <input type="email" name ="mail-inscription" placeholder="Adresse mail" value="<?=isset($newMail) ? $newMail : ""?>" autocomplete ="off">
         </div>
         <div>
             <input type="password" name = "password-inscription" placeholder="Mot de passe">

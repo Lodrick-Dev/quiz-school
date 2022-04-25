@@ -1,10 +1,11 @@
 <?php
+session_start();
 $titre_web = "Edit Profil - QUIZ-SCHOOL";
-require_once "./function/thefunctions.php";
 require_once "./treat/to-connexion.php";
 
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
+var_dump($_SESSION['user-connect']);
 ?>
 <section id="section-edit-profil">
     <h1>Modification de votre profil</h1>
@@ -16,6 +17,12 @@ require_once "./includ-global/nav.php";
             </div>
         <div id="box-champs-edit-pro">
             <a href="./changemdp.php">Changer de mot de passe</a>
+            <div>
+                <input type="text" placeholder ="Nom">
+            </div>
+            <div>
+                <input type="text" placeholder ="Prénom">
+            </div>
             <div>
                 <input type="text" placeholder ="Pseudo">
             </div>

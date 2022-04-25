@@ -1,6 +1,5 @@
 <?php
 $titre_web = "Création - QUIZ-SCHOOL";
-require_once "./function/thefunctions.php";
 require_once "./treat/to-connexion.php";
 
 require_once "./includ-global/head.php";

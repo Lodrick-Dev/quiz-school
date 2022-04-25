@@ -1,5 +1,6 @@
 <?php
 $titre_web = "Connexion - Quiz-School";
+require_once "./includ-global/connectdatabase.php";
 require_once "./function/functions.php";
 require_once "./treat/to-connexion.php";
 // if(isset($_POST['connect-me'])){

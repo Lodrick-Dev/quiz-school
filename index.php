@@ -1,5 +1,7 @@
 <?php
+session_start();
 $titre_web = "QUIZ-SCHOOLL - Accueil";
+session_destroy();
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
 ?>

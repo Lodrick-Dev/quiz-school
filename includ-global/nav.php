@@ -1,3 +1,6 @@
+<?php
+// $deco = "<a href=""><li>Déconnexion</li></a>";
+?>
 <header>
         <div id="box-logo-n-title">
             <a href="../">
@@ -10,6 +13,8 @@
                 <a href="/"><li>Accueil</li></a>
                 <a href="../connexion.php"><li>Compte</li></a>
                 <a href=""><li>Contact</li></a>
+                <?= isset($_SESSION['user-connect']) && !empty($_SESSION["user-connect"]) ? '<a href="../deconnexion.php"><li>Déconnexion</li></a>' : ""?>
             </ul>
         </nav>
+        <div class="<?=isset($_SESSION['user-connect']) && !empty($_SESSION["user-connect"]) ? "connect" : "no-connect"?>"></div>
 </header>
