@@ -1,0 +1,7 @@
+Coding back-end : 
+1- inscription (pseudo < 20 , )
+2- Connexion
+3- Dashboard
+4- Profil
+5- Edit profil
+6- Créer question - Option 3 - 6 - 9 - 12
