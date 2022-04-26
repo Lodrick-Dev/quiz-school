@@ -6,6 +6,6 @@ if(!isset($_SESSION["user-connect"])){
 }
 
 //suppprime la session
-session_destroy($_SESSION["user-connect"]);
+session_destroy();
 // session_destroy();
 header("Location: ./connexion.php");

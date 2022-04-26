@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(!isset($_SESSION['user-connect'])){
+    header("Location: ./connexion.php");
+}
 $titre_web = "Dashboard - QUIZ-SCHOOL";
 
 require_once "./treat/to-connexion.php";

@@ -167,11 +167,14 @@ main > div > #img-first{
 #section-connect > form > #box-link-to-sub-on-connect-page{
     margin: 5px auto 45px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 #section-connect > form > #box-link-to-sub-on-connect-page > a{
     display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
     font-size: 0.8em;
     color: var(--colorfooter);
     text-align: center;
@@ -859,6 +862,85 @@ main > div > #img-first{
     margin: 15px 0px;
 }
 /***********************************fin de end-simulation*/
+/***********************************début init de mot de passe*/
+#section-change-pass-word-mail{
+    padding: 40px;
+}
+#section-change-pass-word-mail > h1{
+    text-align: center;
+    color: var(--colorfooter);
+}
+#section-change-pass-word-mail > form{
+    width: 50%;
+    margin: 20px auto;
+    padding: 10px;
+    background: #610353;
+    border-radius: 5px;
+}
+#section-change-pass-word-mail > form > div{
+    width: 50%;
+    margin: 15px auto;
+    display: flex;
+    justify-content: center;
+}
+#section-change-pass-word-mail > form > div > input{
+    padding: 3px;
+    font-size: 1em;
+    outline: none;
+    background: var(--bgcolor);
+    border: none;
+    border-radius: 3px;
+}
+#section-change-pass-word-mail > form > input{
+    display: block;
+    width: 15%;
+    padding: 5px;
+    border: none;
+    background: var(--bgcolor);
+    border-radius: 3px;
+    margin: 15px auto;
+}
+/***********************************fin init de mot de passe*/
+/***********************************début ask change password*/
+#section-init-pass-word-just-mail{
+    padding: 40px;
+}
+#section-init-pass-word-just-mail > h1{
+    text-align: center;
+    color: var(--colorfooter);
+}
+#section-init-pass-word-just-mail > form{
+    padding: 20px;
+    width: 50%;
+    margin: 15px auto;
+    border-radius: 5px;
+    background: var(--colorfooter);
+}
+#section-init-pass-word-just-mail > form > div{
+    width: 40%;
+    margin: 15px auto;
+}
+#section-init-pass-word-just-mail > form > div > input{
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 3px;
+    border-radius: 3px;
+    background: var(--bgcolor);
+    font-size: 1.1em;
+}
+#section-init-pass-word-just-mail > form > input{
+    display: block;
+    cursor: pointer;
+    margin: 20px auto;
+    width: 15%;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background: var(--bgcolor);
+}
+/***********************************fin ask change password*/
 /**Anim to msg form**/
 .msg-to-user-form{
     color: var(--colored);

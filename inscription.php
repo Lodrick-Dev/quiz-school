@@ -11,10 +11,10 @@ require_once "./includ-global/nav.php";
 if(isset($_POST['inscript-me'])){
     $newPseudo =strip_tags(htmlspecialchars($_POST['pseudo-inscription']));
     $newMail =strip_tags(htmlspecialchars($_POST['mail-inscription']));
-    $newPassWord = $_POST['password-inscription'];
-    $newConfirmePass = $_POST['conf-pass-inscription'];
+    $newPassWord = strip_tags(htmlspecialchars($_POST['password-inscription']));
+    $newConfirmePass = strip_tags(htmlspecialchars($_POST['conf-pass-inscription']));
 //    checkMdp();
-   $msgErreur = checkMdp($newPseudo, $newMail, $newPassWord, $newConfirmePass, $db);
+   $msgErreur = inscript($newPseudo, $newMail, $newPassWord, $newConfirmePass, $db);
 }
 var_dump($newPassWord);
 echo $newPassWord;
