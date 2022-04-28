@@ -184,14 +184,16 @@ function upProfil($upAvat, $upName, $upAutName, $upPseudo, $upMail, $upBio, $upP
                               //to ranme n name' script
                            $newNameFile = md5(uniqid());
 
-                              //creat dossier
-                              $fileExistInt = "/uploader/$upPseudo";
-                           if(!$fileExistInt){
-                              mkdir(__DIR__."/uploader/$upPseudo", 077, true);
+                                 //creat dossier
+                                 //is_dir() to only file
+                                 //file_exists() to file and case (fichier et dossier)
+                              $filePseudoConnect = "./uploader/$upPseudo";
+                           if(!is_dir($filePseudoConnect)){
+                              mkdir($filePseudoConnect, 077, true);
                            }
 
                               //we put file in file n his new name
-                           $newFileUnik = "".$upPseudo."/".$newNameFile."".$_SESSION['user-connect']['id'].".".$extensionCatch;
+                           $newFileUnik = "./uploader/".$upPseudo."/".$newNameFile."".$_SESSION['user-connect']['id'].".".$extensionCatch;
 
                               //file is in fil temporair so we gone catch n we put it in new dossier
                            if(!move_uploaded_file($upAvat["tmp_name"], $newFileUnik)){
@@ -200,7 +202,9 @@ function upProfil($upAvat, $upName, $upAutName, $upPseudo, $upMail, $upBio, $upP
                                  //we forbidden execution script in file if it have but can read with 0644
                               chmod($newFileUnik, 0644);
                                  //we delete old avatar
-                              unlink($_SESSION['user-connect']['profil']);
+                              if(!empty($_SESSION['user-connect']['profil'])){
+                                 unlink($_SESSION['user-connect']['profil']);
+                              };
 
                               $sqlUpdateProfil = "UPDATE `users` SET nom = :upNom, prenom = :upPrenom, pseudo = :upPseudo, email = :upMail, profil_img = :upImg, biography = :upBio WHERE id_user = :idUseUp";
 
@@ -210,7 +214,7 @@ function upProfil($upAvat, $upName, $upAutName, $upPseudo, $upMail, $upBio, $upP
                               $querryPrepareAddData->bindValue(":upPrenom", $upAutName, PDO::PARAM_STR);
                               $querryPrepareAddData->bindValue(":upPseudo", $upPseudo, PDO::PARAM_STR);
                               $querryPrepareAddData->bindValue(":upMail", $upMail, PDO::PARAM_STR);
-                              $querryPrepareAddData->bindValue(":upImg", $upAvat, PDO::PARAM_STR);
+                              $querryPrepareAddData->bindValue(":upImg", $newFileUnik, PDO::PARAM_STR);
                               $querryPrepareAddData->bindValue(":upBio", $upBio, PDO::PARAM_STR);
                               $querryPrepareAddData->bindValue(":idUseUp", $_SESSION['user-connect']['id'], PDO::PARAM_INT);
                               if($querryPrepareAddData->execute()){
@@ -260,6 +264,63 @@ function upProfil($upAvat, $upName, $upAutName, $upPseudo, $upMail, $upBio, $upP
       }
    }else{
       $msgErreur = "veuillez remplir tous les champs...";
+   }
+   return $msgErreur;
+}
+
+//function create msg
+function creatingMsg($numberOfQuestionnaire,$themeQuest,$descripQuest,$idOneQuest,$questOneCreat,$questOneFirstCreat,$questOneSecondCreat,$questOneThreeCreat,$questOneTrueCreat,$idTwoQuest,$questTwoCreat,$questTwoFirstCreat,$questTwoSecondCreat,$questTwoThreeCreat,$questTwoTrueCreat,$idThreeQuest,$questThreeCreat,$questThreeFirstCreat,$questThreeSecondCreat,$questThreeThreeCreat,$questThreeTrueCreat ,$db){
+   if(isset($numberOfQuestionnaire,$themeQuest,$descripQuest,$idOneQuest,$questOneCreat,$questOneFirstCreat,$questOneSecondCreat,$questOneThreeCreat,$questOneTrueCreat,$idTwoQuest,$questTwoCreat,$questTwoFirstCreat,$questTwoSecondCreat,$questTwoThreeCreat,$questTwoTrueCreat,$idThreeQuest,$questThreeCreat,$questThreeFirstCreat,$questThreeSecondCreat,$questThreeThreeCreat,$questThreeTrueCreat) && !empty($numberOfQuestionnaire ) && !empty($themeQuest) && !empty($descripQuest) && !empty($idOneQuest) &&!empty($questOneCreat) && !empty($questOneFirstCreat) && !empty($questOneSecondCreat) && !empty($questOneThreeCreat) && !empty($questOneTrueCreat) && !empty($idTwoQuest) && !empty($questTwoCreat) && !empty($questTwoFirstCreat) && !empty($questTwoSecondCreat) && !empty($questTwoThreeCreat) && !empty($questTwoTrueCreat) && !empty($idThreeQuest) && !empty($questThreeCreat) && !empty($questThreeFirstCreat) && !empty($questThreeSecondCreat) && !empty($questThreeThreeCreat) && !empty($questThreeTrueCreat)){
+      
+      $sqlToTheme = "INSERT INTO `theme_quest` (`theme`,`description`,`id_from_user`) VALUE (:them, :descript, :idFromUser)";
+      $sqlThemeAdd = $db->prepare($sqlToTheme);
+      $sqlThemeAdd->bindValue(":them",$themeQuest,PDO::PARAM_STR);
+      $sqlThemeAdd->bindValue(":descript",$descripQuest,PDO::PARAM_STR);
+      $sqlThemeAdd->bindValue(":idFromUser",$_SESSION["user-connect"]["id"],PDO::PARAM_INT);
+
+      $sqlToAddFirst = "INSERT INTO `questionnaire`(`id_of_questionnaire`,`id_quest`,`question`,`rep_one`,`rep_two`, `rep_three`,`rep_true`, `id_from_user`) VALUE (:idOfQuest,:idQuest, :question, :respOne, :respTwo, :respThree, :respTrue, :idFromUser),
+      (:idOfQuest,:idQuest1, :question1, :respOne1, :respTwo1, :respThree1, :respTrue1, :idFromUser1),
+      (:idOfQuest,:idQuest2, :question2, :respOne2, :respTwo2, :respThree2, :respTrue2, :idFromUser2)";
+         //prepare
+      $reqPrepareFirst = $db->prepare($sqlToAddFirst);
+      $reqPrepareFirst->bindValue(":idOfQuest",$numberOfQuestionnaire, PDO::PARAM_INT);
+      $reqPrepareFirst->bindValue(":idQuest",$idOneQuest, PDO::PARAM_INT);
+      $reqPrepareFirst->bindValue(":question",$questOneCreat, PDO::PARAM_STR);
+      $reqPrepareFirst->bindValue(":respOne",$questOneFirstCreat, PDO::PARAM_STR);
+      $reqPrepareFirst->bindValue(":respTwo",$questOneSecondCreat, PDO::PARAM_STR);
+      $reqPrepareFirst->bindValue(":respThree",$questOneThreeCreat, PDO::PARAM_STR);
+      $reqPrepareFirst->bindValue(":respTrue",$questOneTrueCreat, PDO::PARAM_INT);
+      $reqPrepareFirst->bindValue(":idFromUser",$_SESSION["user-connect"]["id"], PDO::PARAM_INT);
+         //second inject
+      // $reqPrepareSecond = $db->prepare($sqlToAddFirst);
+      $reqPrepareFirst->bindValue(":idOfQuest1",$numberOfQuestionnaire , PDO::PARAM_INT);
+      $reqPrepareFirst->bindValue(":idQuest1",$idTwoQuest, PDO::PARAM_INT);
+      $reqPrepareFirst->bindValue(":question1",$questTwoCreat, PDO::PARAM_STR);
+      $reqPrepareFirst->bindValue(":respOne1",$questTwoFirstCreat, PDO::PARAM_STR);
+      $reqPrepareFirst->bindValue(":respTwo1",$questTwoSecondCreat, PDO::PARAM_STR);
+      $reqPrepareFirst->bindValue(":respThree1",$questTwoThreeCreat, PDO::PARAM_STR);
+      $reqPrepareFirst->bindValue(":respTrue1",$questTwoTrueCreat, PDO::PARAM_INT);
+      $reqPrepareFirst->bindValue(":idFromUser1",$_SESSION["user-connect"]["id"], PDO::PARAM_INT);
+      //treeth inject
+      // $reqPrepareThree = $db->prepare($sqlToAddFirst);
+      $reqPrepareFirst->bindValue(":idOfQuest2",$numberOfQuestionnaire , PDO::PARAM_INT);
+      $reqPrepareFirst->bindValue(":idQuest2",$idThreeQuest, PDO::PARAM_INT);
+      $reqPrepareFirst->bindValue(":question2",$questThreeCreat, PDO::PARAM_STR);
+      $reqPrepareFirst->bindValue(":respOne2",$questThreeFirstCreat, PDO::PARAM_STR);
+      $reqPrepareFirst->bindValue(":respTwo2",$questThreeSecondCreat, PDO::PARAM_STR);
+      $reqPrepareFirst->bindValue(":respThree2",$questThreeThreeCreat, PDO::PARAM_STR);
+      $reqPrepareFirst->bindValue(":respTrue2",$questThreeTrueCreat, PDO::PARAM_INT);
+      $reqPrepareFirst->bindValue(":idFromUser2",$_SESSION["user-connect"]["id"], PDO::PARAM_INT);
+      // $msgErreur = "ok ici !";
+      $msgErreur ="";
+
+      if($sqlThemeAdd->execute() && $reqPrepareFirst->execute()){
+        header("Location: ../dashboard.php");
+      }else{
+         $msgErreur = "Une erreur lors de l'exécution... ";
+      }
+   }else{
+      $msgErreur = "Veuillez remplir tous les champs ...";
    }
    return $msgErreur;
 }

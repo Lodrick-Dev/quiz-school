@@ -11,7 +11,7 @@
         <nav id="box-nav">
             <ul>
                 <a href="/"><li>Accueil</li></a>
-                <a href="../connexion.php"><li>Compte</li></a>
+                <a href="<?=isset($_SESSION['user-connect']) && !empty($_SESSION['user-connect']) ? "../dashboard.php" : "../connexion.php"?>"><li>Compte</li></a>
                 <a href=""><li>Contact</li></a>
                 <?= isset($_SESSION['user-connect']) && !empty($_SESSION["user-connect"]) ? '<a href="../deconnexion.php"><li>Déconnexion</li></a>' : ""?>
             </ul>

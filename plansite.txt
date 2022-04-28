@@ -5,3 +5,46 @@ Coding back-end :
 4- Profil
 5- Edit profil
 6- Créer question - Option 3 - 6 - 9 - 12
+
+
+
+
+ <?php
+            if(isset($_SESSION['number-quest'])){
+                switch($_SESSION['number-quest']){
+                    case "trois":
+                        for($i = 0; $i < $tothree; $i++){
+                            ?>
+                                <div id="separe-in-form-creat-questions"></div>
+                            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
+                                <label for="">Numéro de question :</label>
+                            <input type="number" name="number-quest-creat-quest" class="nm-ber-quest" value="1" min="1" max ="<?=isset($_SESSION['number-quest']) && $_SESSION['number-quest'] == "six" ? "6" : "12" ?>">
+                            </div>
+                            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
+                                Question :
+                                <input type="text" name="quest-creat-quest" placeholder ="Votre question">
+                            </div>
+                            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
+                                <label for="">Réponse 1 :</label>
+                                <input type="text" name="quest-first-creat-quest">
+                            </div>
+                            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
+                                <label for="">Réponse 2 :</label>
+                                <input type="text" name="quest-second-creat-quest">
+                            </div>
+                            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
+                                <label for="">Réponse 3 :</label>
+                                <input type="text" name="quest-three-creat-quest">
+                            </div>
+                            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
+                                <label for="">Bonne Réponse : </label>
+                                <input type="number" name="number-quest-true-creat-quest" class="nm-ber-quest" value="1" max="3" min="1">
+                            </div>
+
+
+                            <?php
+                        }
+                        break;
+                }
+            }
+             ?>

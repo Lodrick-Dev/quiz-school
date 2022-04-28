@@ -1,11 +1,18 @@
 <?php
 $titre_web = "Votre questionnaire - QUIZ-SCHOOL";
 
-require_once "./function/thefunctions.php";
+// require_once "./function/thefunctions.php";
 require_once "./treat/to-connexion.php";
 
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
+
+$sqlGoCatchQuest = "SELECT * FROM `questionnaire` WHERE id_from_user = :id_actif";
+$querryCatch = $db->prepare($sqlGoCatchQuest);
+$querryCatch->bindValue(":id_actif", $_SESSION['user-connect']['id'], PDO::PARAM_INT);
+if($querryCatch->execute()){
+    $questionnaireCatch = $querryCatch->fetchAll();
+}
 ?>
 <section id="display-questionnary">
     <h1>Votre questionnaire</h1>

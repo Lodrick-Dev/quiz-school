@@ -1,7 +1,11 @@
 <?php
 session_start();
+require_once "./includ-global/connectdatabase.php";
 if(!isset($_SESSION['user-connect'])){
     header("Location: ./connexion.php");
+}
+if(isset($_SESSION['number-quest'])){
+    unset($_SESSION['number-quest']);
 }
 $titre_web = "Dashboard - QUIZ-SCHOOL";
 
@@ -10,7 +14,25 @@ require_once "./treat/to-connexion.php";
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
 var_dump($_SESSION['user-connect']);
+// $_SESSION['user-connect']['id'];
 
+
+$sqlGoCatchThem = "SELECT * FROM `theme_quest` WHERE id_from_user = :id_actif_theme";
+$leUser = 12;
+
+$querryCatchThem = $db->prepare($sqlGoCatchThem);
+$querryCatchThem->bindValue(":id_actif_theme", $_SESSION['user-connect']['id'], PDO::PARAM_INT);
+if($querryCatchThem->execute()){
+   $themeCatch = $querryCatchThem->fetchAll();
+   if(!empty($themeCatch)){
+    var_dump($themeCatch);
+    var_dump(count($themeCatch));
+   }else{
+       $msg = "bou!";
+   }
+}
+$i=1;
+echo $themeCatch[0]['theme'];
 ?>
 <section id="section-dashboard">
     <h1>TABLEAU DE BORD</h1>
@@ -20,7 +42,7 @@ var_dump($_SESSION['user-connect']);
                 <h1>Votre profil</h1>
             </div>
             <div class="info-card-profil">
-                <img src="./file/avatardefault/bear-gf5600b6ed_1920.png" alt="" srcset="">
+                <img src="<?=$_SESSION['user-connect']['profil'] == null ? "./file/avatardefault/bear-gf5600b6ed_1920.png" : $_SESSION['user-connect']['profil']?>" alt="" srcset="">
             </div>
             <div class="info-card-profil">
                 <span>Nom :</span>
@@ -67,16 +89,47 @@ var_dump($_SESSION['user-connect']);
                 </select>
             </div>
             <div id="display-catch-data">
-                <!-- php -->
-                <div class="t-card">
-                    <div class="box-theme-with-data">
-                        <span>Theme : </span><strong>X</strong>
+                <?php
+                 if(isset($themeCatch) && !empty($themeCatch)){
+                     $idLink = intval($themeCatch[$i]['id_from_user']);
+                     for($i = 0; $i < count($themeCatch); $i++){
+                         echo $themeCatch[$i]["theme"];
+                         ?>
+                         <div class="t-card">
+                                <div class="box-theme-with-data">
+                                <span>Theme : </span><strong><?= empty($themeCatch) ? "XXX" : $themeCatch[$i]['theme'] ?></strong>
+                            </div>
+                            <div class="box-descript-with-data">
+                                <p><?=empty($themeCatch) ? "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus, culpa." : $themeCatch[$i]['description']?></p>
+                            </div>
+                            <a href="./votre-questionnaire.php?id_quest=<?=$themeCatch[$i]['id_from_user']?>" class="link-watch-plus">Voir plus</a>
+                        </div>
+                    <?php
+                     }
+                 }else{
+                     ?>
+                     <div class="t-card">
+                        <div class="box-theme-with-data">
+                        <span>Theme : </span><strong>XXX</strong>
                     </div>
                     <div class="box-descript-with-data">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus, culpa.</p>
+                        <p>"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus, culpaA affiché</p>
                     </div>
-                    <a href="./votre-questionnaire.php" class="link-watch-plus">Voir plus</a>
+                    <a href="./votre-questionnaire.php?id_quest=" class="link-watch-plus">Voir plus</a>
                 </div>
+                     <?php
+                 }
+                ?>
+                <!-- php --> 
+                <!-- <div class="t-card">
+                    <div class="box-theme-with-data">
+                        <span>Theme : </span><strong><?= empty($questionnaireCatch) ? "XXX" : $themeCatch[$i]['theme'] ?></strong>
+                    </div>
+                    <div class="box-descript-with-data">
+                        <p><?=empty($questionnaireCatch) ? "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus, culpa." : "A affiché"?></p>
+                    </div>
+                    <a href="./votre-questionnaire.php?id_quest=" class="link-watch-plus">Voir plus</a>
+                </div> -->
                 <!-- php -->
             </div>
             <a href="./create-quiz.php" id="link-new-quiz-creat">Nouveau Quiz</a>

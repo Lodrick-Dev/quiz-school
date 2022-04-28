@@ -23,6 +23,7 @@ if(isset($_POST['sub-modif-profil'])){
 var_dump($upAvat);
 var_dump(__DIR__);
 var_dump($_SESSION['user-connect']);
+var_dump($_SESSION['user-connect']['profil']);
 ?>
 <section id="section-edit-profil">
     <h1>Modification de votre profil</h1>

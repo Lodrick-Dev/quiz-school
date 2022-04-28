@@ -259,6 +259,7 @@ main > div > #img-first{
 }
 #section-dashboard > #box-card-from-dash > .card-from-dash{
     position: relative;
+    /* height: 30vh; */
     padding: 10px;
     border-radius: 5px;
     width: 30%;
@@ -332,6 +333,10 @@ main > div > #img-first{
     background: var(--colorfooter);
     outline: none;
     border: none;
+}
+#section-dashboard > #box-card-from-dash > .card-from-dash > #display-catch-data{
+    height: 70%;
+    overflow-y: scroll;
 }
 #section-dashboard > #box-card-from-dash > .card-from-dash > #display-catch-data > .t-card{
     padding: 10px 5px;
@@ -823,6 +828,9 @@ main > div > #img-first{
     border-radius: 5px;
     text-align: center;
     color: var(--colorfooter);
+}
+.waiting-option-user-number{
+    display: none !important;
 }
 /******************************fin creat question*/
 /***********************************début de end-simulation*/
