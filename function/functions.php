@@ -269,13 +269,14 @@ function upProfil($upAvat, $upName, $upAutName, $upPseudo, $upMail, $upBio, $upP
 }
 
 //function create msg
-function creatingMsg($numberOfQuestionnaire,$themeQuest,$descripQuest,$idOneQuest,$questOneCreat,$questOneFirstCreat,$questOneSecondCreat,$questOneThreeCreat,$questOneTrueCreat,$idTwoQuest,$questTwoCreat,$questTwoFirstCreat,$questTwoSecondCreat,$questTwoThreeCreat,$questTwoTrueCreat,$idThreeQuest,$questThreeCreat,$questThreeFirstCreat,$questThreeSecondCreat,$questThreeThreeCreat,$questThreeTrueCreat ,$db){
+function creatingQuestion($numberOfQuestionnaire,$themeQuest,$descripQuest,$idOneQuest,$questOneCreat,$questOneFirstCreat,$questOneSecondCreat,$questOneThreeCreat,$questOneTrueCreat,$idTwoQuest,$questTwoCreat,$questTwoFirstCreat,$questTwoSecondCreat,$questTwoThreeCreat,$questTwoTrueCreat,$idThreeQuest,$questThreeCreat,$questThreeFirstCreat,$questThreeSecondCreat,$questThreeThreeCreat,$questThreeTrueCreat ,$db){
    if(isset($numberOfQuestionnaire,$themeQuest,$descripQuest,$idOneQuest,$questOneCreat,$questOneFirstCreat,$questOneSecondCreat,$questOneThreeCreat,$questOneTrueCreat,$idTwoQuest,$questTwoCreat,$questTwoFirstCreat,$questTwoSecondCreat,$questTwoThreeCreat,$questTwoTrueCreat,$idThreeQuest,$questThreeCreat,$questThreeFirstCreat,$questThreeSecondCreat,$questThreeThreeCreat,$questThreeTrueCreat) && !empty($numberOfQuestionnaire ) && !empty($themeQuest) && !empty($descripQuest) && !empty($idOneQuest) &&!empty($questOneCreat) && !empty($questOneFirstCreat) && !empty($questOneSecondCreat) && !empty($questOneThreeCreat) && !empty($questOneTrueCreat) && !empty($idTwoQuest) && !empty($questTwoCreat) && !empty($questTwoFirstCreat) && !empty($questTwoSecondCreat) && !empty($questTwoThreeCreat) && !empty($questTwoTrueCreat) && !empty($idThreeQuest) && !empty($questThreeCreat) && !empty($questThreeFirstCreat) && !empty($questThreeSecondCreat) && !empty($questThreeThreeCreat) && !empty($questThreeTrueCreat)){
       
-      $sqlToTheme = "INSERT INTO `theme_quest` (`theme`,`description`,`id_from_user`) VALUE (:them, :descript, :idFromUser)";
+      $sqlToTheme = "INSERT INTO `theme_quest` (`theme`,`description`,`id_from_of_questionnaire`,`id_from_user`) VALUE (:them, :descript, :idFromOfQuest, :idFromUser)";
       $sqlThemeAdd = $db->prepare($sqlToTheme);
       $sqlThemeAdd->bindValue(":them",$themeQuest,PDO::PARAM_STR);
       $sqlThemeAdd->bindValue(":descript",$descripQuest,PDO::PARAM_STR);
+      $sqlThemeAdd->bindValue(":idFromOfQuest",$numberOfQuestionnaire,PDO::PARAM_INT);
       $sqlThemeAdd->bindValue(":idFromUser",$_SESSION["user-connect"]["id"],PDO::PARAM_INT);
 
       $sqlToAddFirst = "INSERT INTO `questionnaire`(`id_of_questionnaire`,`id_quest`,`question`,`rep_one`,`rep_two`, `rep_three`,`rep_true`, `id_from_user`) VALUE (:idOfQuest,:idQuest, :question, :respOne, :respTwo, :respThree, :respTrue, :idFromUser),

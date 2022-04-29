@@ -54,9 +54,12 @@ if(isset($_POST['submit-creat-question'])){
     $questThreeTrueCreat = strip_tags(htmlspecialchars($_POST["number-quest-true-creat-quest0"]));
 
     //function call
-    $msgErreur = creatingMsg($numberOfQuestionnaire ,$themeQuest,$descripQuest,$idOneQuest,$questOneCreat,$questOneFirstCreat,$questOneSecondCreat,$questOneThreeCreat,$questOneTrueCreat,$idTwoQuest,$questTwoCreat,$questTwoFirstCreat,$questTwoSecondCreat,$questTwoThreeCreat,$questTwoTrueCreat,$idThreeQuest,$questThreeCreat,$questThreeFirstCreat,$questThreeSecondCreat,$questThreeThreeCreat,$questThreeTrueCreat ,$db);
+    $msgErreur = creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$idOneQuest,$questOneCreat,$questOneFirstCreat,$questOneSecondCreat,$questOneThreeCreat,$questOneTrueCreat,$idTwoQuest,$questTwoCreat,$questTwoFirstCreat,$questTwoSecondCreat,$questTwoThreeCreat,$questTwoTrueCreat,$idThreeQuest,$questThreeCreat,$questThreeFirstCreat,$questThreeSecondCreat,$questThreeThreeCreat,$questThreeTrueCreat ,$db);
     // unset($_SESSION['number-quest']);
 }
+    if($_SESSION["choose"]){
+        header("Location: ./dashboard.php");
+    }
 
 var_dump($_SESSION['number-quest']);
 ?>

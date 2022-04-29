@@ -15,5 +15,6 @@
         </a>
     </div>
 </footer>
+<script src="../js/scriptjs.js" defer ></script>
     </body>
     </html>

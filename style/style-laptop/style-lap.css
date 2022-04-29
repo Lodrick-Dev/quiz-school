@@ -343,6 +343,19 @@ main > div > #img-first{
     background: var(--bgcolor);
     border-radius: 5px;
 }
+.box-number-theme-with-data{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    padding: 3px;
+    background: var(--colorfooter);
+    border-radius: 3px;
+}
+.box-number-theme-with-data > span,
+.box-number-theme-with-data > strong{
+    color: var(--bgcolor);
+}
+
 .box-theme-with-data > span,
 .box-theme-with-data > strong {
     color: var(--colorfooter);
@@ -529,10 +542,10 @@ main > div > #img-first{
 }
 .answer{
     padding: 10px;
-    width: 70%;
+    width: 90%;
     margin: 5px auto;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 .answer > span{
     color: var(--colorfooter);
