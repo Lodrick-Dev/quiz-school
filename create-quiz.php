@@ -32,29 +32,29 @@ if(isset($_POST['submit-creat-question'])){
     $themeQuest = strip_tags(htmlspecialchars($_POST['text-theme-creat-quest']));
     $descripQuest = strip_tags(htmlspecialchars($_POST['text-descrip-creat-quest']));
     //change value now 0
-    $idOneQuest = strip_tags(htmlspecialchars($_POST["number-quest-creat-quest0"]));
-    $questOneCreat = strip_tags(htmlspecialchars($_POST["quest-creat-quest0"]));
-    $questOneFirstCreat = strip_tags(htmlspecialchars($_POST["quest-first-creat-quest0"]));
-    $questOneSecondCreat = strip_tags(htmlspecialchars($_POST["quest-second-creat-quest0"]));
-    $questOneThreeCreat = strip_tags(htmlspecialchars($_POST["quest-three-creat-quest0"]));
-    $questOneTrueCreat = strip_tags(htmlspecialchars($_POST["number-quest-true-creat-quest0"]));
+    $id1Quest = strip_tags(htmlspecialchars($_POST["number-quest-creat-quest0"]));
+    $quest1 = strip_tags(htmlspecialchars($_POST["quest-creat-quest0"]));
+    $option1To1 = strip_tags(htmlspecialchars($_POST["quest-first-creat-quest0"]));
+    $option2To1 = strip_tags(htmlspecialchars($_POST["quest-second-creat-quest0"]));
+    $option3To1 = strip_tags(htmlspecialchars($_POST["quest-three-creat-quest0"]));
+    $optionGoodTo1 = strip_tags(htmlspecialchars($_POST["number-quest-true-creat-quest0"]));
     //change value now 1
-    $idTwoQuest = strip_tags(htmlspecialchars($_POST["number-quest-creat-quest1"]));
-    $questTwoCreat = strip_tags(htmlspecialchars($_POST["quest-creat-quest1"]));
-    $questTwoFirstCreat = strip_tags(htmlspecialchars($_POST["quest-first-creat-quest1"]));
-    $questTwoSecondCreat = strip_tags(htmlspecialchars($_POST["quest-second-creat-quest1"]));
-    $questTwoThreeCreat = strip_tags(htmlspecialchars($_POST["quest-three-creat-quest1"]));
-    $questTwoTrueCreat = strip_tags(htmlspecialchars($_POST["number-quest-true-creat-quest1"]));
+    $id2Quest = strip_tags(htmlspecialchars($_POST["number-quest-creat-quest1"]));
+    $quest2 = strip_tags(htmlspecialchars($_POST["quest-creat-quest1"]));
+    $option1To2 = strip_tags(htmlspecialchars($_POST["quest-first-creat-quest1"]));
+    $option2To2  = strip_tags(htmlspecialchars($_POST["quest-second-creat-quest1"]));
+    $option3To2 = strip_tags(htmlspecialchars($_POST["quest-three-creat-quest1"]));
+    $optionGoodTo2 = strip_tags(htmlspecialchars($_POST["number-quest-true-creat-quest1"]));
     //change value now 2
-    $idThreeQuest = strip_tags(htmlspecialchars($_POST["number-quest-creat-quest2"]));
-    $questThreeCreat = strip_tags(htmlspecialchars($_POST["quest-creat-quest2"]));
-    $questThreeFirstCreat = strip_tags(htmlspecialchars($_POST["quest-first-creat-quest2"]));
-    $questThreeSecondCreat = strip_tags(htmlspecialchars($_POST["quest-second-creat-quest2"]));
-    $questThreeThreeCreat = strip_tags(htmlspecialchars($_POST["quest-three-creat-quest2"]));
-    $questThreeTrueCreat = strip_tags(htmlspecialchars($_POST["number-quest-true-creat-quest0"]));
+    $id3Quest = strip_tags(htmlspecialchars($_POST["number-quest-creat-quest2"]));
+    $quest3 = strip_tags(htmlspecialchars($_POST["quest-creat-quest2"]));
+    $option1To3 = strip_tags(htmlspecialchars($_POST["quest-first-creat-quest2"]));
+    $option2To3 = strip_tags(htmlspecialchars($_POST["quest-second-creat-quest2"]));
+    $option3To3 = strip_tags(htmlspecialchars($_POST["quest-three-creat-quest2"]));
+    $optionGoodTo3 = strip_tags(htmlspecialchars($_POST["number-quest-true-creat-quest0"]));
 
     //function call
-    $msgErreur = creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$idOneQuest,$questOneCreat,$questOneFirstCreat,$questOneSecondCreat,$questOneThreeCreat,$questOneTrueCreat,$idTwoQuest,$questTwoCreat,$questTwoFirstCreat,$questTwoSecondCreat,$questTwoThreeCreat,$questTwoTrueCreat,$idThreeQuest,$questThreeCreat,$questThreeFirstCreat,$questThreeSecondCreat,$questThreeThreeCreat,$questThreeTrueCreat ,$db);
+    $msgErreur = creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1,$option1To1,$option2To1,$option3To1,$optionGoodTo1, $id2Quest,$quest2,$option1To2,$option2To2,$option3To2,$optionGoodTo2, $id3Quest,$quest3,$option1To3,$option2To3,$option3To3,$optionGoodTo3,$db);
     // unset($_SESSION['number-quest']);
 }
     if($_SESSION["choose"]){
@@ -62,6 +62,21 @@ if(isset($_POST['submit-creat-question'])){
     }
 
 var_dump($_SESSION['number-quest']);
+
+$numberOfQuestionnaire  = "boba";
+$themeQuest = "bobab";
+$descripQuest = "bobabc";
+$id1Quest = "bobabcde";
+$quest1 = "bobabcdef";
+
+$directors = array( "Alfred Hitchcock", "Stanley Kubrick", "Martin Scorsese", "Fritz Lang" );
+
+$valuetoAdd = array($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1);
+// var_dump($valuetoAdd);
+// var_dump($directors);
+// foreach($valuetoAdd as $key){
+//     echo $key ."<br>";
+// }
 ?>
 <section id="section-creat-quiz">
 <h1>Création de votre questionnaire</h1>

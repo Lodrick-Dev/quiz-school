@@ -269,8 +269,11 @@ function upProfil($upAvat, $upName, $upAutName, $upPseudo, $upMail, $upBio, $upP
 }
 
 //function create msg
-function creatingQuestion($numberOfQuestionnaire,$themeQuest,$descripQuest,$idOneQuest,$questOneCreat,$questOneFirstCreat,$questOneSecondCreat,$questOneThreeCreat,$questOneTrueCreat,$idTwoQuest,$questTwoCreat,$questTwoFirstCreat,$questTwoSecondCreat,$questTwoThreeCreat,$questTwoTrueCreat,$idThreeQuest,$questThreeCreat,$questThreeFirstCreat,$questThreeSecondCreat,$questThreeThreeCreat,$questThreeTrueCreat ,$db){
-   if(isset($numberOfQuestionnaire,$themeQuest,$descripQuest,$idOneQuest,$questOneCreat,$questOneFirstCreat,$questOneSecondCreat,$questOneThreeCreat,$questOneTrueCreat,$idTwoQuest,$questTwoCreat,$questTwoFirstCreat,$questTwoSecondCreat,$questTwoThreeCreat,$questTwoTrueCreat,$idThreeQuest,$questThreeCreat,$questThreeFirstCreat,$questThreeSecondCreat,$questThreeThreeCreat,$questThreeTrueCreat) && !empty($numberOfQuestionnaire ) && !empty($themeQuest) && !empty($descripQuest) && !empty($idOneQuest) &&!empty($questOneCreat) && !empty($questOneFirstCreat) && !empty($questOneSecondCreat) && !empty($questOneThreeCreat) && !empty($questOneTrueCreat) && !empty($idTwoQuest) && !empty($questTwoCreat) && !empty($questTwoFirstCreat) && !empty($questTwoSecondCreat) && !empty($questTwoThreeCreat) && !empty($questTwoTrueCreat) && !empty($idThreeQuest) && !empty($questThreeCreat) && !empty($questThreeFirstCreat) && !empty($questThreeSecondCreat) && !empty($questThreeThreeCreat) && !empty($questThreeTrueCreat)){
+function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1,$option1To1,$option2To1,$option3To1,$optionGoodTo1, $id2Quest,$quest2,$option1To2,$option2To2,$option3To2,$optionGoodTo2, $id3Quest,$quest3,$option1To3,$option2To3,$option3To3,$optionGoodTo3,$db){
+   if(isset($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1,$option1To1,$option2To1,$option3To1,$optionGoodTo1, $id2Quest,$quest2,$option1To2,$option2To2,$option3To2,$optionGoodTo2, $id3Quest,$quest3,$option1To3,$option2To3,$option3To3,$optionGoodTo3) && !empty($numberOfQuestionnaire ) && !empty($themeQuest) && !empty($descripQuest) && !empty($id1Quest) &&!empty($quest1) && !empty($option1To1) && !empty($option2To1) && !empty($option3To1) && !empty($optionGoodTo1) && !empty($id2Quest) &&!empty($quest2) && !empty($option1To2) && !empty($option2To2) && !empty($option3To2) && !empty($optionGoodTo2)  && !empty($id3Quest) &&!empty($quest3) && !empty($option1To3) && !empty($option2To3) && !empty($option3To3) && !empty($optionGoodTo3)){
+      $optionGoodTo1 = intVal($optionGoodTo1);
+      $optionGoodTo2 = intVal($optionGoodTo2);
+      $optionGoodTo3 = intVal($optionGoodTo3);
       
       $sqlToTheme = "INSERT INTO `theme_quest` (`theme`,`description`,`id_from_of_questionnaire`,`id_from_user`) VALUE (:them, :descript, :idFromOfQuest, :idFromUser)";
       $sqlThemeAdd = $db->prepare($sqlToTheme);
@@ -279,47 +282,24 @@ function creatingQuestion($numberOfQuestionnaire,$themeQuest,$descripQuest,$idOn
       $sqlThemeAdd->bindValue(":idFromOfQuest",$numberOfQuestionnaire,PDO::PARAM_INT);
       $sqlThemeAdd->bindValue(":idFromUser",$_SESSION["user-connect"]["id"],PDO::PARAM_INT);
 
-      $sqlToAddFirst = "INSERT INTO `questionnaire`(`id_of_questionnaire`,`id_quest`,`question`,`rep_one`,`rep_two`, `rep_three`,`rep_true`, `id_from_user`) VALUE (:idOfQuest,:idQuest, :question, :respOne, :respTwo, :respThree, :respTrue, :idFromUser),
-      (:idOfQuest,:idQuest1, :question1, :respOne1, :respTwo1, :respThree1, :respTrue1, :idFromUser1),
-      (:idOfQuest,:idQuest2, :question2, :respOne2, :respTwo2, :respThree2, :respTrue2, :idFromUser2)";
-         //prepare
-      $reqPrepareFirst = $db->prepare($sqlToAddFirst);
-      $reqPrepareFirst->bindValue(":idOfQuest",$numberOfQuestionnaire, PDO::PARAM_INT);
-      $reqPrepareFirst->bindValue(":idQuest",$idOneQuest, PDO::PARAM_INT);
-      $reqPrepareFirst->bindValue(":question",$questOneCreat, PDO::PARAM_STR);
-      $reqPrepareFirst->bindValue(":respOne",$questOneFirstCreat, PDO::PARAM_STR);
-      $reqPrepareFirst->bindValue(":respTwo",$questOneSecondCreat, PDO::PARAM_STR);
-      $reqPrepareFirst->bindValue(":respThree",$questOneThreeCreat, PDO::PARAM_STR);
-      $reqPrepareFirst->bindValue(":respTrue",$questOneTrueCreat, PDO::PARAM_INT);
-      $reqPrepareFirst->bindValue(":idFromUser",$_SESSION["user-connect"]["id"], PDO::PARAM_INT);
-         //second inject
-      // $reqPrepareSecond = $db->prepare($sqlToAddFirst);
-      $reqPrepareFirst->bindValue(":idOfQuest1",$numberOfQuestionnaire , PDO::PARAM_INT);
-      $reqPrepareFirst->bindValue(":idQuest1",$idTwoQuest, PDO::PARAM_INT);
-      $reqPrepareFirst->bindValue(":question1",$questTwoCreat, PDO::PARAM_STR);
-      $reqPrepareFirst->bindValue(":respOne1",$questTwoFirstCreat, PDO::PARAM_STR);
-      $reqPrepareFirst->bindValue(":respTwo1",$questTwoSecondCreat, PDO::PARAM_STR);
-      $reqPrepareFirst->bindValue(":respThree1",$questTwoThreeCreat, PDO::PARAM_STR);
-      $reqPrepareFirst->bindValue(":respTrue1",$questTwoTrueCreat, PDO::PARAM_INT);
-      $reqPrepareFirst->bindValue(":idFromUser1",$_SESSION["user-connect"]["id"], PDO::PARAM_INT);
-      //treeth inject
-      // $reqPrepareThree = $db->prepare($sqlToAddFirst);
-      $reqPrepareFirst->bindValue(":idOfQuest2",$numberOfQuestionnaire , PDO::PARAM_INT);
-      $reqPrepareFirst->bindValue(":idQuest2",$idThreeQuest, PDO::PARAM_INT);
-      $reqPrepareFirst->bindValue(":question2",$questThreeCreat, PDO::PARAM_STR);
-      $reqPrepareFirst->bindValue(":respOne2",$questThreeFirstCreat, PDO::PARAM_STR);
-      $reqPrepareFirst->bindValue(":respTwo2",$questThreeSecondCreat, PDO::PARAM_STR);
-      $reqPrepareFirst->bindValue(":respThree2",$questThreeThreeCreat, PDO::PARAM_STR);
-      $reqPrepareFirst->bindValue(":respTrue2",$questThreeTrueCreat, PDO::PARAM_INT);
-      $reqPrepareFirst->bindValue(":idFromUser2",$_SESSION["user-connect"]["id"], PDO::PARAM_INT);
-      // $msgErreur = "ok ici !";
-      $msgErreur ="";
 
-      if($sqlThemeAdd->execute() && $reqPrepareFirst->execute()){
-        header("Location: ../dashboard.php");
-      }else{
-         $msgErreur = "Une erreur lors de l'exécution... ";
+      $valuetoAdd = array($numberOfQuestionnaire, $id1Quest, $quest1,$numberOfQuestionnaire, $id1Quest, $quest2,$numberOfQuestionnaire, $id1Quest, $quest3);
+
+      foreach($valuetoAdd as $value){
+         //dans boucle
+      $sqlToAddB = "INSERT INTO `questionnaire`(`id_of_questionnaire`,`id_quest`,`question`, `id_from_user`) VALUES (:idOfQuest,:idQuest, :question, :idFromUser)";
+         //prepare
+      $reInB = $db->prepare($sqlToAddB);
+      $reInB->bindValue(":idOfQuest", $value, PDO::PARAM_INT);
+      $reInB->bindValue(":idQuest", $value, PDO::PARAM_INT);
+      $reInB->bindValue(":question", $value, PDO::PARAM_STR);
+      $reInB->bindValue(":idFromUser", $_SESSION["user-connect"]["id"], PDO::PARAM_INT);
+      $reInB->execute();
       }
+
+      
+
+      $msgErreur ="";
    }else{
       $msgErreur = "Veuillez remplir tous les champs ...";
    }

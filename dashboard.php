@@ -36,7 +36,22 @@ if($querryCatchThem->execute()){
    }
 }
 $i=1;
+$aze = "1";
+$aze = intVal($aze);
+echo gettype($aze);
 echo $themeCatch[0]['theme'];
+function getIp(){
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+      $ip = $_SERVER['HTTP_CLIENT_IP'];
+    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+      $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }else{
+      $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
+  }
+  echo 'L adresse IP de l utilisateur est : '.getIp();
+  var_dump($_SERVER);
 ?>
 <section id="section-dashboard">
     <h1>TABLEAU DE BORD</h1>

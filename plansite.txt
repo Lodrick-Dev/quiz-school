@@ -8,43 +8,33 @@ Coding back-end :
 
 
 
-
- <?php
-            if(isset($_SESSION['number-quest'])){
-                switch($_SESSION['number-quest']){
-                    case "trois":
-                        for($i = 0; $i < $tothree; $i++){
-                            ?>
-                                <div id="separe-in-form-creat-questions"></div>
-                            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
-                                <label for="">Numéro de question :</label>
-                            <input type="number" name="number-quest-creat-quest" class="nm-ber-quest" value="1" min="1" max ="<?=isset($_SESSION['number-quest']) && $_SESSION['number-quest'] == "six" ? "6" : "12" ?>">
-                            </div>
-                            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
-                                Question :
-                                <input type="text" name="quest-creat-quest" placeholder ="Votre question">
-                            </div>
-                            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
-                                <label for="">Réponse 1 :</label>
-                                <input type="text" name="quest-first-creat-quest">
-                            </div>
-                            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
-                                <label for="">Réponse 2 :</label>
-                                <input type="text" name="quest-second-creat-quest">
-                            </div>
-                            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
-                                <label for="">Réponse 3 :</label>
-                                <input type="text" name="quest-three-creat-quest">
-                            </div>
-                            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
-                                <label for="">Bonne Réponse : </label>
-                                <input type="number" name="number-quest-true-creat-quest" class="nm-ber-quest" value="1" max="3" min="1">
-                            </div>
-
-
-                            <?php
-                        }
-                        break;
-                }
+CODE CEDRIC
+//table choix_question
+         $correct_choix = $_POST['correct_choix'];
+         // On recupere la bonne reponse
+         $explication = $_POST['explication'];
+         // On recupere l'explication de la reponse
+         // Choice Array
+         $choix = array();
+         // On recupere les choix possible
+         $choix[1] = $_POST['choix_1'];
+         $choix[2] = $_POST['choix_2'];
+         $choix[3] = $_POST['choix_3'];
+         $choix[4] = $_POST['choix_4'];
+         if($theme == "html") {
+            // On ecrit dans la table questions 
+            $req=$bdd->prepare("INSERT INTO html_questions (question_number , question_text, question_explication) VALUES(?,?,?)");
+            $req->execute(array($question_numero, $question_text, $explication));
+            // On ecrit dans la table options
+            foreach($choix as $option => $value){
+               if($value != ""){
+                  if($correct_choix == $option){
+                     $is_correct = 1;
+                  }else{
+                     $is_correct = 0;
+                  }
+                  $req=$bdd->prepare("INSERT INTO html_choix (question_number, is_correct, question_option) VALUES(?,?,?)");
+                  $req->execute(array($question_numero,$is_correct, $value));
+               }
             }
-             ?>
+            }
