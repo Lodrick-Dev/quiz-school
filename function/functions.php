@@ -271,6 +271,7 @@ function upProfil($upAvat, $upName, $upAutName, $upPseudo, $upMail, $upBio, $upP
 //function create msg
 function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1,$option1To1,$option2To1,$option3To1,$optionGoodTo1, $id2Quest,$quest2,$option1To2,$option2To2,$option3To2,$optionGoodTo2, $id3Quest,$quest3,$option1To3,$option2To3,$option3To3,$optionGoodTo3,$db){
    if(isset($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1,$option1To1,$option2To1,$option3To1,$optionGoodTo1, $id2Quest,$quest2,$option1To2,$option2To2,$option3To2,$optionGoodTo2, $id3Quest,$quest3,$option1To3,$option2To3,$option3To3,$optionGoodTo3) && !empty($numberOfQuestionnaire ) && !empty($themeQuest) && !empty($descripQuest) && !empty($id1Quest) &&!empty($quest1) && !empty($option1To1) && !empty($option2To1) && !empty($option3To1) && !empty($optionGoodTo1) && !empty($id2Quest) &&!empty($quest2) && !empty($option1To2) && !empty($option2To2) && !empty($option3To2) && !empty($optionGoodTo2)  && !empty($id3Quest) &&!empty($quest3) && !empty($option1To3) && !empty($option2To3) && !empty($option3To3) && !empty($optionGoodTo3)){
+      $toChoix = $id1Quest;
       $optionGoodTo1 = intVal($optionGoodTo1);
       $optionGoodTo2 = intVal($optionGoodTo2);
       $optionGoodTo3 = intVal($optionGoodTo3);
@@ -281,22 +282,64 @@ function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1
       $sqlThemeAdd->bindValue(":descript",$descripQuest,PDO::PARAM_STR);
       $sqlThemeAdd->bindValue(":idFromOfQuest",$numberOfQuestionnaire,PDO::PARAM_INT);
       $sqlThemeAdd->bindValue(":idFromUser",$_SESSION["user-connect"]["id"],PDO::PARAM_INT);
+      $sqlThemeAdd->execute();
 
+      $questionsAdd = array($quest1, $quest2,$quest3);
 
-      $valuetoAdd = array($numberOfQuestionnaire, $id1Quest, $quest1,$numberOfQuestionnaire, $id1Quest, $quest2,$numberOfQuestionnaire, $id1Quest, $quest3);
-
-      foreach($valuetoAdd as $value){
-         //dans boucle
-      $sqlToAddB = "INSERT INTO `questionnaire`(`id_of_questionnaire`,`id_quest`,`question`, `id_from_user`) VALUES (:idOfQuest,:idQuest, :question, :idFromUser)";
-         //prepare
-      $reInB = $db->prepare($sqlToAddB);
-      $reInB->bindValue(":idOfQuest", $value, PDO::PARAM_INT);
-      $reInB->bindValue(":idQuest", $value, PDO::PARAM_INT);
-      $reInB->bindValue(":question", $value, PDO::PARAM_STR);
-      $reInB->bindValue(":idFromUser", $_SESSION["user-connect"]["id"], PDO::PARAM_INT);
-      $reInB->execute();
+         //to inject questions
+      foreach($questionsAdd as $value){
+         $sqlToAddB = "INSERT INTO `questionnaire`(`id_of_questionnaire`,`id_quest`,`question`, `id_from_user`) VALUES (:idOfQuest,:idQuest, :question, :idFromUser)";
+            //prepare
+         $reInB = $db->prepare($sqlToAddB);
+         $reInB->bindValue(":idOfQuest", $numberOfQuestionnaire, PDO::PARAM_INT);
+         $reInB->bindValue(":idQuest", $id1Quest, PDO::PARAM_INT);
+         $reInB->bindValue(":question", $value, PDO::PARAM_STR);
+         $reInB->bindValue(":idFromUser", $_SESSION["user-connect"]["id"], PDO::PARAM_INT);
+         $reInB->execute();
+         $id1Quest++;
       }
+            //inject réponse
+         $propositionsAdd = [
+         "$option1To1" => 1,
+         "$option2To1" => 2,
+         "$option3To1" => 3,
+         "$option1To2" => 1,
+         "$option2To2" => 2,
+         "$option3To2" => 3,
+         "$option1To3" => 1,
+         "$option2To3" => 2,
+         "$option3To3" => 3
+      ];
+      $toChoix = 1;
+      foreach($propositionsAdd as $textChoix => $checkId){
+         if($toChoix > count($questionsAdd)){
+            $toChoix = 1;
+         }
+         $good = 0;
+         if($checkId === $optionGoodTo1){
+            $good = 1;
+         }
+         if($checkId === $optionGoodTo2){
+            $good = 1;
+         }
+         if($checkId === $optionGoodTo3){
+            $good = 1;
+         }
+         $sqlAddChoice = "INSERT INTO `choix_question`(`id_questionnaire`, `quest_number`,`quest_option`,`correct`, `id_from_user`) VALUES (:idQuestionnaire,:numberQuestion,:choix,:bonneR, :userCo)";
 
+         $nbQuest = "SELECT * FROM `questionnaire` WHERE id_quest = :idFetch";
+         $prefetch = $db-prepare($nbQuest);
+         $prefetch->bindValue(":idFetch", );
+
+         $querryPrepareChoice = $db->prepare($sqlAddChoice);
+         $querryPrepareChoice->bindValue(":idQuestionnaire",$numberOfQuestionnaire,PDO::PARAM_INT);
+         $querryPrepareChoice->bindValue(":numberQuestion",$toChoix, PDO::PARAM_INT);
+         $querryPrepareChoice->bindValue(":choix",$textChoix,PDO::PARAM_STR);
+         $querryPrepareChoice->bindValue(":bonneR",$good,PDO::PARAM_INT);
+         $querryPrepareChoice->bindValue(":userCo",$_SESSION["user-connect"]["id"],PDO::PARAM_INT);
+         $querryPrepareChoice->execute();
+         $toChoix++;
+      }
       
 
       $msgErreur ="";

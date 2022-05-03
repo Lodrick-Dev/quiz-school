@@ -151,31 +151,6 @@ $valuetoAdd = array($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,
                 }
             }
              ?>
-            <!-- <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
-                <label for="">Numéro de question :</label>
-                <input type="number" name="" class="nm-ber-quest" value="1" min="1" max ="<?=isset($_SESSION['number-quest']) && $_SESSION['number-quest'] == "six" ? "6" : "12" ?>">
-            </div>
-            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
-                Question :
-                <input type="text" placeholder ="Votre question">
-            </div>
-            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
-                <label for="">Réponse 1 :</label>
-                <input type="text">
-            </div>
-            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
-                <label for="">Réponse 2 :</label>
-                <input type="text">
-            </div>
-            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
-                <label for="">Réponse 3 :</label>
-                <input type="text">
-            </div>
-            <div class="box-creat-quest <?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
-                <label for="">Bonne Réponse : </label>
-                <input type="number" class="nm-ber-quest" value="1" max="3" min="1">
-            </div> -->
-            <!-- php -->
             <div id="box-btn-sub-creat-questions" class="<?=isset($_SESSION['number-quest']) ? "" : "waiting-option-user-number"?>">
                 <input type="submit" value="Envoyer" name ="submit-creat-question">
             </div>

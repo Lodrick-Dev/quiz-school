@@ -35,23 +35,42 @@ if($querryCatchThem->execute()){
        $msg = "bou!";
    }
 }
-$i=1;
-$aze = "1";
-$aze = intVal($aze);
-echo gettype($aze);
-echo $themeCatch[0]['theme'];
-function getIp(){
-    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-      $ip = $_SERVER['HTTP_CLIENT_IP'];
-    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-      $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    }else{
-      $ip = $_SERVER['REMOTE_ADDR'];
+
+
+$a = " Je vis";
+$b = "Je meurs";
+$c = "Je survie";
+$fab = array($a,$b,$c);
+
+
+$l = 1;
+$m = 2;
+$n = 2;
+
+$new = [
+    "$a" => $l,
+    "$b" => $m,
+    "$c" => $n
+];
+var_dump($new);
+foreach($new as $textChoix => $correct){
+    $bou = "Le default 0";
+    if($correct === $l){
+        $bou = "Eh houm1";
+    }if($correct === $l){
+        $bou = "Eh houm2";
+    }if($correct === $l){
+        $bou = "Eh houm3";
     }
-    return $ip;
-  }
-  echo 'L adresse IP de l utilisateur est : '.getIp();
-  var_dump($_SERVER);
+    // echo "La 2e boucle avec sa variable: $mym <br>";
+    echo "Numéro de la bonne réponse : $correct <br>";
+    echo "A pousser en text : $textChoix <br>";
+    echo "Si on dit : $bou alors c'est correct <br>";
+}
+
+echo "<br> les var_dump : <br>";
+var_dump($fab);
+
 ?>
 <section id="section-dashboard">
     <h1>TABLEAU DE BORD</h1>
