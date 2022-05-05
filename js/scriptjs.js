@@ -11,3 +11,18 @@ if(links){
         })
     });
 }
+
+
+
+
+/////
+// const x = document.getElementById("display-questionnary");
+// const y = document.querySelector(".box-boucl");
+// console.log(y);
+// console.log(x);
+// x.addEventListener('click', ()=>{
+//     // alert("yedgcfsn");
+// })
+// y.addEventListener('click', ()=>{
+//     console.log("Click");;
+// })

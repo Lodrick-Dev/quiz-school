@@ -52,6 +52,7 @@ $new = [
     "$b" => $m,
     "$c" => $n
 ];
+$hoo = array($l, $m);
 var_dump($new);
 foreach($new as $textChoix => $correct){
     $bou = "Le default 0";

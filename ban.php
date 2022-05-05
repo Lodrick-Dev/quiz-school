@@ -37,11 +37,11 @@ function check_if_banned($db,$login_attempt = false,$login_success = false){
                                     //reset login count if sucess
                                 $querryUpSucess = "UPDATE `ip-bloc` SET login_count = 0 WHERE id = :id LIMIT 1";
                                 $preQuerry = $db->prepare($querryUpSucess);
-                                $check = $querryUpSucess->execute([
+                                $check = $preQuerry->execute([
                                     "id"=>$colonne["id"],
                                 ]);
                             }else{
-                                    //add login cou
+                                    //add login count on failure
                                 $querry = "UPDATE `ip-bloc` SET login_count = login_count + 1 WHERE id = :id LIMIT 1";
 
                                 $preQuerry = $db->prepare($querry);

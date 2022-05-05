@@ -15,56 +15,61 @@ require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
 
     //table questionnaire
-$sqlGoCatchQuest = "SELECT * FROM `questionnaire` WHERE id_of_questionnaire = :idQuestCall AND id_from_user = :idUserActif";
+$sqlGoCatchQuest = "SELECT * FROM `questionnaire` WHERE id_of_questionnaire = :idQuestCall AND id_from_user = :idUserActif ORDER BY id_quest ";
 $querryCatch = $db->prepare($sqlGoCatchQuest);
 $querryCatch->bindValue(":idQuestCall", $idQuestionnaire, PDO::PARAM_INT);
 $querryCatch->bindValue(":idUserActif", $_SESSION['user-connect']['id'], PDO::PARAM_INT);
 
     //table theme description
-$sqlGoCatchTheme = "SELECT * FROM `theme_quest` WHERE id_from_of_questionnaire = :idQuestCall AND id_from_user = :idUserActif";
+$sqlGoCatchTheme = "SELECT * FROM `theme_quest` WHERE id_from_of_questionnaire = :idQuestCall AND id_from_user = :idUserActif ";
 $querryCatchTheme = $db->prepare($sqlGoCatchTheme);
 $querryCatchTheme->bindValue(":idQuestCall",$idQuestionnaire,PDO::PARAM_INT);
 $querryCatchTheme->bindValue(":idUserActif",$_SESSION['user-connect']['id'],PDO::PARAM_INT);
 
-if($querryCatch->execute() && $querryCatchTheme->execute()){
+    //table theme description
+$sqlGoCatchOption = "SELECT * FROM `choix_question` WHERE id_questionnaire = :idQuest AND id_from_user = :idUserActif ORDER BY quest_number";
+$querryCatchOption = $db->prepare($sqlGoCatchOption);
+$querryCatchOption->bindValue(":idQuest",$idQuestionnaire,PDO::PARAM_INT);
+$querryCatchOption->bindValue(":idUserActif",$_SESSION['user-connect']['id'],PDO::PARAM_INT);
+
+if($querryCatch->execute() && $querryCatchTheme->execute() && $querryCatchOption->execute()){
     $questionnaireCatch = $querryCatch->fetchAll();
     $themeCatch = $querryCatchTheme->fetchAll();
+    $optionCatch = $querryCatchOption->fetchAll();
 }
 var_dump($questionnaireCatch);
-echo $questionnaireCatch[0]["rep_one"];
-echo $idQuestionnaire;
 var_dump($themeCatch);
+var_dump($optionCatch);
 ?>
 <section id="display-questionnary">
     <h1>Votre questionnaire</h1>
     <a href="<?=@$_SERVER["HTTP_REFERER"] ?>"> < Back</a>
     <div id="box-questionnary-display">
-        <h2>Theme : <?= $themeCatch[0]["theme"]?>  </h2>
+        <h2>Theme : <?= $themeCatch[0]["theme"]?> </h2>
         <!-- php -->
-        ?>
         <?php foreach( $questionnaireCatch as $question) :?>
+            <?php $num = 1; ?>
+            <?php foreach($optionCatch as $option):?>
 
         <div class="box-boucl">
             <div class="box-quest">
                 <p><?=$question["question"]?></p>
                 <div class="answer">
                     <span>
-                    <?= $question["rep_true"] == 1 ? "Bonne réponse" : "Réponse" ?>
-                         <strong><?=$question["rep_one"]?></strong>
+                    <?= "lol"; ?>
                     </span>
                     <span>
-                        <?= $question["rep_true"] == 2 ? "Bonne réponse" : "Réponse" ?>
-                         <strong><?=$question["rep_two"]?></strong>
+                        <?= $option["quest_option"]?>
                     </span>
                     <span>
-                        <?= $question["rep_true"] == 3 ? "Bonne réponse" : "Réponse" ?>
-                         <strong><?=$question["rep_three"]?></strong>
+                        <?= $option["quest_option"]?>
                     </span>
                 </div>
             </div>
         </div>
-        <?php endforeach;
-        ?>
+            <?php endforeach; ?>
+            <?php $num++; ?>
+        <?php endforeach;?>
         <!-- php -->
         <div id="box-link-on-simul">
             <a href="./quiz-simulation.php">Faire une simulation</a>

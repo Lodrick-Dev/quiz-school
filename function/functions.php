@@ -315,12 +315,17 @@ function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1
          "$option2To3" => 2,
          "$option3To3" => 3
       ];
-      $toChoix = 1;
+
       foreach($propositionsAdd as $textChoix => $checkId){
-         if($toChoix > count($questionsAdd)){
+         $toChoix = 3;
+         if($textChoix === $option1To1 || $textChoix === $option2To1 || $textChoix === $option3To1){
             $toChoix = 1;
+         }else if($textChoix === $option1To2 || $textChoix === $option2To2 || $textChoix === $option3To2){
+            $toChoix = 2;
          }
+         
          $good = 0;
+         
          if($checkId === $optionGoodTo1){
             $good = 1;
          }
@@ -331,10 +336,6 @@ function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1
             $good = 1;
          }
          $sqlAddChoice = "INSERT INTO `choix_question`(`id_questionnaire`, `quest_number`,`quest_option`,`correct`, `id_from_user`) VALUES (:idQuestionnaire,:numberQuestion,:choix,:bonneR, :userCo)";
-
-         $nbQuest = "SELECT * FROM `questionnaire` WHERE id_quest = :idFetch";
-         $prefetch = $db-prepare($nbQuest);
-         $prefetch->bindValue(":idFetch", );
 
          $querryPrepareChoice = $db->prepare($sqlAddChoice);
          $querryPrepareChoice->bindValue(":idQuestionnaire",$numberOfQuestionnaire,PDO::PARAM_INT);
