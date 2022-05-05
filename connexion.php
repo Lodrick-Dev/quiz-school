@@ -7,11 +7,13 @@ if(isset($_SESSION['user-connect'])){
 require_once "./includ-global/connectdatabase.php";
 require_once "./function/functions.php";
 require_once "./treat/to-connexion.php";
+require_once "./ban.php";
 // if(isset($_POST['connect-me'])){
 
 // }
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
+check_if_banned($db);
 if(isset($_POST['connect-me'])){
     $mailConnect =strip_tags(htmlspecialchars($_POST['mail-connect']));
     $passConnect =strip_tags(htmlspecialchars($_POST['pass-connect']));

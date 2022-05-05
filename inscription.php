@@ -2,9 +2,11 @@
 session_start();
 require_once "./includ-global/connectdatabase.php";
 $titre_web = "Inscription - Quiz-School";
+require_once "./ban.php";
 
 require_once "./treat/to-connexion.php";
 require_once "./function/functions.php";
+check_if_banned($db);
 
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";

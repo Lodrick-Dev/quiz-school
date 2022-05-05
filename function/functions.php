@@ -1,10 +1,12 @@
 <?php
 // session_start();
+// require_once "../includ-global/connectdatabase.php";
 // $uppercase = preg_match('@[A-Z]@', $password);
     // $lowercase = preg_match('@[a-z]@', $password);
     // $number    = preg_match('@[0-9]@', $password);
     // $lenght    = preg_match('@[8,]@', $password); //au moin 8 caractère
     // $caractSpécial    = preg_match('@[\W]@', $password);
+
 //function inscription
 function inscript($newPseudo, $newMail, $newPassWord, $newConfirmePass, $db){
    $msgErreur ="";
@@ -113,6 +115,7 @@ function connect($mailConnect, $passConnect, $db){
             }else{
                if(!password_verify($passConnect, $mailConnectChecked['password_user'])){
                   $msgErreur = "Email ou mot de passe est incorrect...";
+                  check_if_banned($db,true, false);
                }else{
                   // $userConnect = $querryConnect->fetch();
                   $_SESSION["user-connect"] = [
@@ -126,6 +129,7 @@ function connect($mailConnect, $passConnect, $db){
                      "statut" => $mailConnectChecked['statut_user'],
                      "date" => $mailConnectChecked['creat_date']
                   ];
+                  check_if_banned($db,true, true);
                   header("Location: ../dashboard.php");
                }
             }
@@ -134,6 +138,7 @@ function connect($mailConnect, $passConnect, $db){
          }
       }else{
          $msgErreur = "Email invalide..";
+         check_if_banned($db,true, false);
       }
    }else{
       $msgErreur = "Veuillez remplir tous les champs..";
@@ -348,3 +353,4 @@ function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1
    }
    return $msgErreur;
 }
+
