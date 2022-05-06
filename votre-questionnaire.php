@@ -32,6 +32,7 @@ $querryCatchOption = $db->prepare($sqlGoCatchOption);
 $querryCatchOption->bindValue(":idQuest",$idQuestionnaire,PDO::PARAM_INT);
 $querryCatchOption->bindValue(":idUserActif",$_SESSION['user-connect']['id'],PDO::PARAM_INT);
 
+$arra = [];
 if($querryCatch->execute() && $querryCatchTheme->execute() && $querryCatchOption->execute()){
     $questionnaireCatch = $querryCatch->fetchAll();
     $themeCatch = $querryCatchTheme->fetchAll();
@@ -40,6 +41,7 @@ if($querryCatch->execute() && $querryCatchTheme->execute() && $querryCatchOption
 var_dump($questionnaireCatch);
 var_dump($themeCatch);
 var_dump($optionCatch);
+
 ?>
 <section id="display-questionnary">
     <h1>Votre questionnaire</h1>
@@ -50,23 +52,22 @@ var_dump($optionCatch);
         <?php foreach( $questionnaireCatch as $question) :?>
             <?php $num = 1; ?>
             <?php foreach($optionCatch as $option):?>
-
-        <div class="box-boucl">
-            <div class="box-quest">
-                <p><?=$question["question"]?></p>
-                <div class="answer">
-                    <span>
-                    <?= "lol"; ?>
-                    </span>
-                    <span>
-                        <?= $option["quest_option"]?>
-                    </span>
-                    <span>
-                        <?= $option["quest_option"]?>
-                    </span>
+                <div class="box-boucl">
+                    <div class="box-quest">
+                        <p><?=$question["question"]?></p>
+                        <div class="answer">
+                            <span>
+                            <?= $question["id_quest"] === $option["quest_number"] ? $option["quest_option"] : ""?>
+                            </span>
+                            <span>
+                                <?= $question["id_quest"] === $option["quest_number"] ? $option["quest_option"] : ""?>
+                            </span>
+                            <span>
+                                <?= $question["id_quest"] === $option["quest_number"] ? $option["quest_option"] : ""?>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
             <?php endforeach; ?>
             <?php $num++; ?>
         <?php endforeach;?>
