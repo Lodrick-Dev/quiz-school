@@ -38,10 +38,26 @@ if($querryCatch->execute() && $querryCatchTheme->execute() && $querryCatchOption
     $themeCatch = $querryCatchTheme->fetchAll();
     $optionCatch = $querryCatchOption->fetchAll();
 }
-var_dump($questionnaireCatch);
-var_dump($themeCatch);
-var_dump($optionCatch);
 
+var_dump($questionnaireCatch);
+// var_dump($themeCatch);
+// var_dump($optionCatch);
+$op1 = [];
+$op2 = [];
+$op3 = [];
+foreach ($optionCatch as $key => $value) {
+    if($value["quest_number"] == '1'){
+        $op1[] = $value["quest_option"];
+    }else if($value["quest_number"] == '2'){
+        $op2[] = $value["quest_option"];
+    }else{
+        $op3[] = $value["quest_option"];
+    }
+}
+var_dump($op1);
+var_dump($op2);
+var_dump($op3);
+echo $op1[0];
 ?>
 <section id="display-questionnary">
     <h1>Votre questionnaire</h1>
@@ -49,27 +65,56 @@ var_dump($optionCatch);
     <div id="box-questionnary-display">
         <h2>Theme : <?= $themeCatch[0]["theme"]?> </h2>
         <!-- php -->
+        <?php $am = 0; $amm = 0; $az = 0;?>
         <?php foreach( $questionnaireCatch as $question) :?>
-            <?php $num = 1; ?>
-            <?php foreach($optionCatch as $option):?>
                 <div class="box-boucl">
                     <div class="box-quest">
                         <p><?=$question["question"]?></p>
                         <div class="answer">
                             <span>
-                            <?= $question["id_quest"] === $option["quest_number"] ? $option["quest_option"] : ""?>
+                                <?php if($am == 0 ){
+                                    echo $op1[$am];
+                                    $am++;
+                                    }else if($am == 3){
+                                        // $amm = 0;
+                                        echo $op2[$amm];
+                                         $amm++;
+                                        }
+                                        if($amm === 3){
+                                            // $a = 0;
+                                            echo $op3[$az];
+                                             $az++;
+                                            }?>
                             </span>
                             <span>
-                                <?= $question["id_quest"] === $option["quest_number"] ? $option["quest_option"] : ""?>
+                                <?php if($am == 1 ){
+                                    echo $op1[$am];
+                                    $am++;
+                                }else if($amm == 1){
+                                    echo $op2[$amm];
+                                     $amm++;
+                                }
+                                if($az === 1){
+                                     echo $op3[$az];
+                                     $az++;
+                                }?>
                             </span>
                             <span>
-                                <?= $question["id_quest"] === $option["quest_number"] ? $option["quest_option"] : ""?>
+                                <?php if($am == 2 ){
+                                    echo $op1[$am];
+                                    $am++;
+                                }else if($amm == 2){
+                                    echo $op2[$amm];
+                                     $amm++;
+                                }
+                                if($az === 2){
+                                    echo $op3[$az]; 
+                                    $az++;
+                                }?>
                             </span>
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
-            <?php $num++; ?>
         <?php endforeach;?>
         <!-- php -->
         <div id="box-link-on-simul">
