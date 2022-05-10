@@ -50,14 +50,28 @@ foreach ($optionCatch as $key => $value) {
         $op1[] = $value["quest_option"];
     }else if($value["quest_number"] == '2'){
         $op2[] = $value["quest_option"];
-    }else{
+    }else if($value["quest_number"] == '3'){
         $op3[] = $value["quest_option"];
     }
 }
 var_dump($op1);
 var_dump($op2);
 var_dump($op3);
-echo $op1[0];
+
+$nes = [
+    "a" => "retour",
+    "b" => "avance",
+    "c" => "comeback",
+];
+$nem = [
+    "a" => "hook",
+    "b" => "book",
+    "c" => "took",
+];
+foreach ($nes as $keys => $valu);
+foreach ($nem as $key => $value);
+echo $valu;
+echo $value;
 ?>
 <section id="display-questionnary">
     <h1>Votre questionnaire</h1>
@@ -72,25 +86,25 @@ echo $op1[0];
                         <p><?=$question["question"]?></p>
                         <div class="answer">
                             <span>
-                                <?php if($am == 0 ){
+                                <?php
                                     echo $op1[$am];
                                     $am++;
-                                    }else if($am == 3){
-                                        // $amm = 0;
+                                    
+                                    if($am == 3){
                                         echo $op2[$amm];
                                          $amm++;
                                         }
-                                        if($amm === 3){
-                                            // $a = 0;
+                                        if($amm === 2){
                                             echo $op3[$az];
                                              $az++;
                                             }?>
                             </span>
                             <span>
-                                <?php if($am == 1 ){
+                                <?php
                                     echo $op1[$am];
                                     $am++;
-                                }else if($amm == 1){
+                                    
+                                    if($amm == 1){
                                     echo $op2[$amm];
                                      $amm++;
                                 }
@@ -100,14 +114,14 @@ echo $op1[0];
                                 }?>
                             </span>
                             <span>
-                                <?php if($am == 2 ){
+                                <?php
                                     echo $op1[$am];
                                     $am++;
-                                }else if($amm == 2){
+                                    
+                                    if($amm == 2){
                                     echo $op2[$amm];
-                                     $amm++;
-                                }
-                                if($az === 2){
+                                    //  $amm++;
+                                } else if($az === 2){
                                     echo $op3[$az]; 
                                     $az++;
                                 }?>
