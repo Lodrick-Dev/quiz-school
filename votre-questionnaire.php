@@ -39,39 +39,42 @@ if($querryCatch->execute() && $querryCatchTheme->execute() && $querryCatchOption
     $optionCatch = $querryCatchOption->fetchAll();
 }
 
-var_dump($questionnaireCatch);
+//var_dump($questionnaireCatch);
 // var_dump($themeCatch);
-// var_dump($optionCatch);
-$op1 = [];
-$op2 = [];
-$op3 = [];
-foreach ($optionCatch as $key => $value) {
-    if($value["quest_number"] == '1'){
-        $op1[] = $value["quest_option"];
-    }else if($value["quest_number"] == '2'){
-        $op2[] = $value["quest_option"];
-    }else if($value["quest_number"] == '3'){
-        $op3[] = $value["quest_option"];
-    }
-}
-var_dump($op1);
-var_dump($op2);
-var_dump($op3);
+var_dump($optionCatch);
 
-$nes = [
-    "a" => "retour",
-    "b" => "avance",
-    "c" => "comeback",
-];
-$nem = [
-    "a" => "hook",
-    "b" => "book",
-    "c" => "took",
-];
-foreach ($nes as $keys => $valu);
-foreach ($nem as $key => $value);
-echo $valu;
-echo $value;
+
+
+// $op1 = [];
+// $op2 = [];
+// $op3 = [];
+// foreach ($optionCatch as $key => $value) {
+//     if($value["quest_number"] == '1'){
+//         $op1[] = $value["quest_option"];
+//     }else if($value["quest_number"] == '2'){
+//         $op2[] = $value["quest_option"];
+//     }else if($value["quest_number"] == '3'){
+//         $op3[] = $value["quest_option"];
+//     }
+// }
+// var_dump($op1);
+// var_dump($op2);
+// var_dump($op3);
+
+// $nes = [
+//     "a" => "retour",
+//     "b" => "avance",
+//     "c" => "comeback",
+// ];
+// $nem = [
+//     "a" => "hook",
+//     "b" => "book",
+//     "c" => "took",
+// ];
+// foreach ($nes as $keys => $valu);
+// foreach ($nem as $key => $value);
+// echo $valu;
+// echo $value;
 ?>
 <section id="display-questionnary">
     <h1>Votre questionnaire</h1>
@@ -85,46 +88,26 @@ echo $value;
                     <div class="box-quest">
                         <p><?=$question["question"]?></p>
                         <div class="answer">
+
+                       <?php 
+                        $idquest = $question["id_quest"];
+                       foreach($optionCatch as $result){
+                            if($idquest ==  $result['quest_number']){
+                                echo $result['quest_option'];
+                            }
+}
+
+
+
+
+?>
+
+
                             <span>
-                                <?php
-                                    echo $op1[$am];
-                                    $am++;
-                                    
-                                    if($am == 3){
-                                        echo $op2[$amm];
-                                         $amm++;
-                                        }
-                                        if($amm === 2){
-                                            echo $op3[$az];
-                                             $az++;
-                                            }?>
                             </span>
                             <span>
-                                <?php
-                                    echo $op1[$am];
-                                    $am++;
-                                    
-                                    if($amm == 1){
-                                    echo $op2[$amm];
-                                     $amm++;
-                                }
-                                if($az === 1){
-                                     echo $op3[$az];
-                                     $az++;
-                                }?>
                             </span>
                             <span>
-                                <?php
-                                    echo $op1[$am];
-                                    $am++;
-                                    
-                                    if($amm == 2){
-                                    echo $op2[$amm];
-                                    //  $amm++;
-                                } else if($az === 2){
-                                    echo $op3[$az]; 
-                                    $az++;
-                                }?>
                             </span>
                         </div>
                     </div>
