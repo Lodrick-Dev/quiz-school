@@ -1,10 +1,23 @@
 <?php
+session_start();
 $titre_web = "Simulation - QUIZ-SCHOOL";
-require_once "./function/thefunctions.php";
+if(!isset($_GET["id_quest"]) || empty($_GET["id_quest"])){
+    header("Location: ./dashboard.php");
+    exit;
+}
+$idQuestionnaire = $_GET["id_quest"];
+echo $idQuestionnaire;
+require_once "./includ-global/connectdatabase.php";
+require_once "./function/functions.php";
 require_once "./treat/to-connexion.php";
 
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
+require_once "./allquerry.php";
+
+var_dump($questionnaireCatch);
+var_dump($themeCatch);
+var_dump($optionCatch);
 ?>
 <section id="section-quiz-simulation">
     <h1>Simulation</h1>
@@ -12,7 +25,8 @@ require_once "./includ-global/nav.php";
     <a href="./dashboard.php" class="stop-cancel">Arretez la simulation</a>
     <div id="box-simulation-live">
         <form action="">
-            <h2>Theme : <span>X</span></h2>
+            <h2>Theme : <span><?= $themeCatch[0]["theme"]?></span></h2>
+            //
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, deserunt?</p>
             <div id="box-glob-of-div-n-input">
                 <div>
@@ -31,6 +45,7 @@ require_once "./includ-global/nav.php";
             <div id="btn-to-simul-val">
                 <input type="submit" value="Valider">
             </div>
+            //
         </form>
     </div>
 </section>
