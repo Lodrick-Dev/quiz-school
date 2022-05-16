@@ -273,8 +273,9 @@ function upProfil($upAvat, $upName, $upAutName, $upPseudo, $upMail, $upBio, $upP
    return $msgErreur;
 }
 
-//function create msg
+//function create questionnaire
 function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1,$option1To1,$option2To1,$option3To1,$optionGoodTo1, $id2Quest,$quest2,$option1To2,$option2To2,$option3To2,$optionGoodTo2, $id3Quest,$quest3,$option1To3,$option2To3,$option3To3,$optionGoodTo3,$db){
+
    if(isset($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1,$option1To1,$option2To1,$option3To1,$optionGoodTo1, $id2Quest,$quest2,$option1To2,$option2To2,$option3To2,$optionGoodTo2, $id3Quest,$quest3,$option1To3,$option2To3,$option3To3,$optionGoodTo3) && !empty($numberOfQuestionnaire ) && !empty($themeQuest) && !empty($descripQuest) && !empty($id1Quest) &&!empty($quest1) && !empty($option1To1) && !empty($option2To1) && !empty($option3To1) && !empty($optionGoodTo1) && !empty($id2Quest) &&!empty($quest2) && !empty($option1To2) && !empty($option2To2) && !empty($option3To2) && !empty($optionGoodTo2)  && !empty($id3Quest) &&!empty($quest3) && !empty($option1To3) && !empty($option2To3) && !empty($option3To3) && !empty($optionGoodTo3)){
       $toChoix = $id1Quest;
       $optionGoodTo1 = intVal($optionGoodTo1);
@@ -317,25 +318,27 @@ function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1
       ];
 
       foreach($propositionsAdd as $textChoix => $checkId){
-         $toChoix = 3;
+         // $toChoix = 3;
+         $good = 0;
          if($textChoix === $option1To1 || $textChoix === $option2To1 || $textChoix === $option3To1){
             $toChoix = 1;
+            if($checkId === $optionGoodTo1){
+               $good = 1;
+            }
          }else if($textChoix === $option1To2 || $textChoix === $option2To2 || $textChoix === $option3To2){
             $toChoix = 2;
+            if($checkId === $optionGoodTo2){
+               $good = 1;
+            }
+         }else if($textChoix === $option1To3 || $textChoix === $option2To3 || $textChoix === $option3To3){
+            $toChoix = 3;
+            if($checkId === $optionGoodTo3){
+               $good = 1;
+            }
          }
          
-         $good = 0;
-         
-         if($checkId === $optionGoodTo1){
-            $good = 1;
-         }
-         if($checkId === $optionGoodTo2){
-            $good = 1;
-         }
-         if($checkId === $optionGoodTo3){
-            $good = 1;
-         }
-         $sqlAddChoice = "INSERT INTO `choix_question`(`id_questionnaire`, `quest_number`,`quest_option`,`correct`, `id_from_user`) VALUES (:idQuestionnaire,:numberQuestion,:choix,:bonneR, :userCo)";
+
+         $sqlAddChoice = "INSERT INTO `choix_question`(`id_questionnaire`, `quest_number`,`quest_option`,`correct`, `id_from_user`) VALUES (:idQuestionnaire, :numberQuestion, :choix, :bonneR, :userCo)";
 
          $querryPrepareChoice = $db->prepare($sqlAddChoice);
          $querryPrepareChoice->bindValue(":idQuestionnaire",$numberOfQuestionnaire,PDO::PARAM_INT);
@@ -344,9 +347,9 @@ function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1
          $querryPrepareChoice->bindValue(":bonneR",$good,PDO::PARAM_INT);
          $querryPrepareChoice->bindValue(":userCo",$_SESSION["user-connect"]["id"],PDO::PARAM_INT);
          $querryPrepareChoice->execute();
-         $toChoix++;
+         // $toChoix++;
       }
-      
+      header("Location: ../dashboard.php");
 
       $msgErreur ="";
    }else{
@@ -355,3 +358,18 @@ function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1
    return $msgErreur;
 }
 
+
+//function simulation quiz
+function simulQuiz($choiceUser, $process, $idQuestionnaire, $optionCatch, $score, $db){
+   $process++;
+   $sqlQuerry = "SELECT * FROM `choix_question` WHERE quest_number = :nbr AND correct = 1";
+   $sqlPrepare = $db->prepare($sqlQuerry);
+   $sqlPrepare->bindValue("nbr", $process, PDO::PARAM_INT);
+   if($sqlPrepare->execute()){
+      $correctChoice = $sqlPrepare->fetch();
+      if($correctChoice["quest_option"] == $choiceUser){
+         $_SESSION['score'];
+      }
+   }
+   header("Location: ../quiz-simulation.php?id_quest=$idQuestionnaire&nbq=$process");
+}

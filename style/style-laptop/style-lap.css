@@ -687,21 +687,52 @@ main > div > #img-first{
     border-radius: 5px;
     background: #610353;
 }
-#box-simulation-live > form > h2{
+.invi{
+    display: none;
+}
+#box-simulation-live > h2{
     background: var(--bgcolor);
-    width: 20%;
+    text-align: center;
+    width: 50%;
     margin: 0px auto;
     padding: 10px;
     border-radius: 5px;
     color: var(--colorfooter);
 }
-#box-simulation-live > form > p{
+#box-simulation-live > form > h2{
     padding: 10px;
+    text-align: center;
     width: 70%;
     margin: 10px auto;
 }
+#box-glob-of-div-n-input{
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    padding: 10px;
+    margin: 0px auto;
+    background: #05a11f;
+}
 #box-glob-of-div-n-input > div{
-    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 10px;
+    width: 30%;
+    background: #AD0594;
+}
+#box-glob-of-div-n-input > div > input{
+    display: block;
+    text-align: center;
+    width: 20%;
+    /* height: 40%; */
+    margin: 8px auto;
+    cursor: pointer;
+}
+#box-glob-of-div-n-input > div > label{
+    font-size: 1.2em;
+    text-align: center;
+    cursor: pointer;
 }
 #box-simulation-live > form > #btn-to-simul-val{
     display: flex;

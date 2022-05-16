@@ -51,11 +51,15 @@ if(isset($_POST['submit-creat-question'])){
     $option1To3 = strip_tags(htmlspecialchars($_POST["quest-first-creat-quest2"]));
     $option2To3 = strip_tags(htmlspecialchars($_POST["quest-second-creat-quest2"]));
     $option3To3 = strip_tags(htmlspecialchars($_POST["quest-three-creat-quest2"]));
-    $optionGoodTo3 = strip_tags(htmlspecialchars($_POST["number-quest-true-creat-quest0"]));
+    $optionGoodTo3 = strip_tags(htmlspecialchars($_POST["number-quest-true-creat-quest2"]));
 
     //function call
     $msgErreur = creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1,$option1To1,$option2To1,$option3To1,$optionGoodTo1, $id2Quest,$quest2,$option1To2,$option2To2,$option3To2,$optionGoodTo2, $id3Quest,$quest3,$option1To3,$option2To3,$option3To3,$optionGoodTo3,$db);
-    // unset($_SESSION['number-quest']);
+    unset($_SESSION['number-quest']);
+
+    echo $optionGoodTo1;
+    echo $optionGoodTo2;
+    echo $optionGoodTo3;
 }
     if($_SESSION["choose"]){
         header("Location: ./dashboard.php");
@@ -77,6 +81,37 @@ $valuetoAdd = array($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,
 // foreach($valuetoAdd as $key){
 //     echo $key ."<br>";
 // }
+$propositionsAdd = [
+    "optiona1" => 1,
+    "optionab1" => 2,
+    "optionar1" => 3,
+    "optiona2" => 1,
+    "optionad2" => 2,
+    "optionaq2" => 3,
+    "optionav3" => 1,
+    "optiona3" => 2,
+    "optionaz3" => 3
+ ];
+
+ $op1 = 1;
+ $op2 = 2;
+ $op3 = 3;
+
+ foreach ($propositionsAdd as $key => $value) {
+     echo $key ." text et ". intVal($value) ."<br>";
+     $scoop = 0;
+     if($value === $op1){
+         $scoop = 1;
+     }
+     if($value === $op2){
+         $scoop = 2;
+     }
+     if($value === $op3){
+         $scoop = 3;
+     }
+     echo " <br> Ici $scoop <br>";
+ }
+ var_dump($propositionsAdd);
 ?>
 <section id="section-creat-quiz">
 <h1>Création de votre questionnaire</h1>
