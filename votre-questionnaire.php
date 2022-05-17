@@ -18,6 +18,7 @@ require_once "./allquerry.php";
 var_dump($themeCatch);
 var_dump($optionCatch);
 $process = 1;
+unset($_SESSION['score']);
 ?>
 <section id="display-questionnary">
     <h1>Votre questionnaire</h1>
@@ -48,7 +49,7 @@ $process = 1;
         <!-- php -->
         <div id="box-link-on-simul">
             <a href="./quiz-simulation.php?id_quest=<?=$themeCatch[0]['id_from_of_questionnaire']?>&nbq=<?=$process?>">Faire une simulation</a>
-            <a href="./edit-questionnaire.php">Modifier le questionnaire</a>
+            <a href="./edit-questionnaire.php?id_quest=<?=$result['id_questionnaire']?>">Modifier le questionnaire</a>
         </div>
     </div>
 </section>

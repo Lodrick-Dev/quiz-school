@@ -317,8 +317,8 @@ function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1
          "$option3To3" => 3
       ];
 
+      $numero = 1;
       foreach($propositionsAdd as $textChoix => $checkId){
-         // $toChoix = 3;
          $good = 0;
          if($textChoix === $option1To1 || $textChoix === $option2To1 || $textChoix === $option3To1){
             $toChoix = 1;
@@ -336,18 +336,24 @@ function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1
                $good = 1;
             }
          }
+
+         if($numero ==4){
+            $numero = 1;
+         }
          
 
-         $sqlAddChoice = "INSERT INTO `choix_question`(`id_questionnaire`, `quest_number`,`quest_option`,`correct`, `id_from_user`) VALUES (:idQuestionnaire, :numberQuestion, :choix, :bonneR, :userCo)";
+         $sqlAddChoice = "INSERT INTO `choix_question`(`id_questionnaire`, `quest_number`, `num_response`,`quest_option`,`correct`, `id_from_user`) VALUES (:idQuestionnaire, :numberQuestion, :nmQuest, :choix, :bonneR, :userCo)";
 
          $querryPrepareChoice = $db->prepare($sqlAddChoice);
          $querryPrepareChoice->bindValue(":idQuestionnaire",$numberOfQuestionnaire,PDO::PARAM_INT);
          $querryPrepareChoice->bindValue(":numberQuestion",$toChoix, PDO::PARAM_INT);
+         $querryPrepareChoice->bindValue(":nmQuest",$numero,PDO::PARAM_INT);
          $querryPrepareChoice->bindValue(":choix",$textChoix,PDO::PARAM_STR);
          $querryPrepareChoice->bindValue(":bonneR",$good,PDO::PARAM_INT);
          $querryPrepareChoice->bindValue(":userCo",$_SESSION["user-connect"]["id"],PDO::PARAM_INT);
          $querryPrepareChoice->execute();
          // $toChoix++;
+         $numero++;
       }
       header("Location: ../dashboard.php");
 
@@ -360,16 +366,41 @@ function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1
 
 
 //function simulation quiz
-function simulQuiz($choiceUser, $process, $idQuestionnaire, $optionCatch, $score, $db){
-   $process++;
-   $sqlQuerry = "SELECT * FROM `choix_question` WHERE quest_number = :nbr AND correct = 1";
+function simulQuiz($choiceUser, $process, $idQuestionnaire, $optionCatch, $db){
+   $sqlQuerry = "SELECT * FROM `choix_question` WHERE id_questionnaire = :qnb AND quest_number = :nbr AND quest_option = :opt AND correct = 1";
    $sqlPrepare = $db->prepare($sqlQuerry);
-   $sqlPrepare->bindValue("nbr", $process, PDO::PARAM_INT);
+   $sqlPrepare->bindValue(":qnb", $idQuestionnaire, PDO::PARAM_INT);
+   $sqlPrepare->bindValue(":nbr", $process, PDO::PARAM_INT);
+   $sqlPrepare->bindValue(":opt", $choiceUser, PDO::PARAM_STR);
    if($sqlPrepare->execute()){
       $correctChoice = $sqlPrepare->fetch();
-      if($correctChoice["quest_option"] == $choiceUser){
-         $_SESSION['score'];
+      var_dump($correctChoice);
+      if($correctChoice == false){
+         $process++;
+         // var_dump($correctChoice);
+         header("Location: ../quiz-simulation.php?id_quest=$idQuestionnaire&nbq=$process");
+         // exit;
       }
-   }
-   header("Location: ../quiz-simulation.php?id_quest=$idQuestionnaire&nbq=$process");
+      else if($correctChoice["correct"] == 1){
+         $_SESSION["score"]++;
+         $process++;
+         // var_dump($correctChoice);
+                  header("Location: ../quiz-simulation.php?id_quest=$idQuestionnaire&nbq=$process");
+                  // exit;
+              }
+    }
+
+
+    $sqlQuerry = "SELECT * FROM `questionnaire` WHERE id_of_questionnaire = :qnb AND id_from_user = :user ";
+    $sqlPrepare = $db->prepare($sqlQuerry);
+    $sqlPrepare->bindValue(":qnb", $idQuestionnaire, PDO::PARAM_INT);
+    $sqlPrepare->bindValue(":user", $_SESSION["user-connect"]['id'], PDO::PARAM_INT);
+    if($sqlPrepare->execute()){
+       $correctChoice = $sqlPrepare->fetchAll();
+       $total = count($correctChoice);
+       if($process > $total){
+           header("Location: ../end-simulation.php?id_quest=$idQuestionnaire");
+           exit;
+        }
+     }
 }

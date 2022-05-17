@@ -17,8 +17,6 @@ require_once "./treat/to-connexion.php";
 
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
-var_dump($_SESSION['user-connect']);
-// $_SESSION['user-connect']['id'];
 
 
 $sqlGoCatchThem = "SELECT * FROM `theme_quest` WHERE id_from_user = :id_actif_theme";
@@ -28,50 +26,8 @@ $querryCatchThem = $db->prepare($sqlGoCatchThem);
 $querryCatchThem->bindValue(":id_actif_theme", $_SESSION['user-connect']['id'], PDO::PARAM_INT);
 if($querryCatchThem->execute()){
    $themeCatch = $querryCatchThem->fetchAll();
-   if(!empty($themeCatch)){
-    var_dump($themeCatch);
-    var_dump(count($themeCatch));
-   }else{
-       $msg = "bou!";
-   }
 }
-
-
-$a = " Je vis";
-$b = "Je meurs";
-$c = "Je survie";
-$fab = array($a,$b,$c);
-
-
-$l = 1;
-$m = 2;
-$n = 2;
-
-$new = [
-    "$a" => $l,
-    "$b" => $m,
-    "$c" => $n
-];
-$hoo = array($l, $m);
-var_dump($new);
-foreach($new as $textChoix => $correct){
-    $bou = "Le default 0";
-    if($correct === $l){
-        $bou = "Eh houm1";
-    }if($correct === $l){
-        $bou = "Eh houm2";
-    }if($correct === $l){
-        $bou = "Eh houm3";
-    }
-    // echo "La 2e boucle avec sa variable: $mym <br>";
-    echo "Numéro de la bonne réponse : $correct <br>";
-    echo "A pousser en text : $textChoix <br>";
-    echo "Si on dit : $bou alors c'est correct <br>";
-}
-
-echo "<br> les var_dump : <br>";
-var_dump($fab);
-
+unset($_SESSION['score']);
 ?>
 <section id="section-dashboard">
     <h1>TABLEAU DE BORD</h1>
@@ -144,6 +100,7 @@ var_dump($fab);
                                 <p><?=empty($themeCatch) ? "" : $themeCatch[$i]['description']?></p>
                             </div>
                             <a href="./votre-questionnaire.php?id_quest=<?=$themeCatch[$i]['id_from_of_questionnaire']?>" class="link-watch-plus">Voir plus</a>
+                            <a href="./delete-questionnaire.php?id-quest=<?=$themeCatch[$i]['id_from_of_questionnaire']?>&iU=<?=$themeCatch[$i]['id_from_user']?>">Supprimer</a>
                         </div>
                     <?php
                      }

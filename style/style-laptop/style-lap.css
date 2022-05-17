@@ -605,7 +605,7 @@ main > div > #img-first{
     padding: 20px;
     background: var(--colorcards);
 }
-#separe-in-form-edit-questions{
+.separe-in-form-edit-questions{
     width: 50%;
     height: 5px;
     margin: 10px auto;
