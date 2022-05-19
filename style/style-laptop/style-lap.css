@@ -1003,6 +1003,64 @@ main > div > #img-first{
     from{visibility: visible;}
     to{visibility: hidden;}
 }
+/************************************questionnaire*/
+#section-questionnaire{
+    margin: 50px 0px;
+}
+#section-questionnaire > .div-glob{
+    background: #610353;
+    width: 80%;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 3px;
+}
+.them-quest > h1{
+    text-align: center;
+    margin-bottom: 20px;
+    color: #CA9AFA;
+}
+.iv-score{
+    background: #05a11f;
+    width: 10%;
+    padding: 15px;
+    border-radius: 3px;
+}
+.iv-score > span{
+    font-size: 1.5em;
+}
+.them-quest > h1 > strong{
+    color: #ddc8f3;
+    font-size: 1.4em;
+}
+.div-glob > form{
+    background: #CA9AFA;
+    width: 90%;
+    margin: 15px auto;
+}
+.div-glob > form > h2{
+    text-align: center;
+    color: #610353;
+    width: 90%;
+    margin: 25px auto;
+    padding: 15px;
+}
+.btn-to-questionnaire-val{
+    /* background: #610353; */
+    margin: 10px;
+    padding: 20px;
+}
+.btn-to-questionnaire-val > input{
+    display: block;
+    background: #610353;
+    margin: 0px auto;
+    width: 10%;
+    padding: 2px;
+    font-size: 1.3em;
+    color: #ddc8f3;
+    border-radius: 3px;
+    border: none;
+}
+
 /********************debut footer*/
 footer{
     height: 20vh;

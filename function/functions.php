@@ -372,27 +372,28 @@ function updateQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Qu
       $optionGoodTo2 = intVal($optionGoodTo2);
       $optionGoodTo3 = intVal($optionGoodTo3);
       
-      $sqlToTheme = "UPDATE `theme_quest` SET `theme` = :them,`description` = :descript, `id_from_of_questionnaire` = :idFromOfQuest,`id_from_user`= :idFromUser WHERE id_from_of_questionnaire = :numQuest";
+      $sqlToTheme = "UPDATE `theme_quest` SET `theme` = :them,`description` = :descript, `id_from_of_questionnaire` = :idFromOfQuest WHERE id_from_of_questionnaire = :numQuest AND id_from_user = :userConnected";
       $sqlThemeAdd = $db->prepare($sqlToTheme);
       $sqlThemeAdd->bindValue(":them",$themeQuest,PDO::PARAM_STR);
       $sqlThemeAdd->bindValue(":descript",$descripQuest,PDO::PARAM_STR);
       $sqlThemeAdd->bindValue(":idFromOfQuest",$numberOfQuestionnaire,PDO::PARAM_INT);
-      $sqlThemeAdd->bindValue(":idFromUser",$_SESSION["user-connect"]["id"],PDO::PARAM_INT);
       $sqlThemeAdd->bindValue(":numQuest",$numberOfQuestionnaire,PDO::PARAM_INT);
+      $sqlThemeAdd->bindValue(":userConnected",$_SESSION["user-connect"]["id"],PDO::PARAM_INT);
       $sqlThemeAdd->execute();
 
       $questionsAdd = array($quest1, $quest2,$quest3);
 
          //to inject questions
       foreach($questionsAdd as $value){
-         $sqlToAddB = "UPDATE `questionnaire` SET `id_of_questionnaire` = :idOfQuest,`id_quest` = :idQuest,`question`= :question, `id_from_user`= :idFromUser WHERE id_of_questionnaire = :idQuest";
+         $sqlToAddB = "UPDATE `questionnaire` SET `id_of_questionnaire` = :idOfQuest,`id_quest` = :idQuest,`question`= :question WHERE id_of_questionnaire = :idQuestUp AND id_quest = :identiQuest AND id_from_user = :userConnect";
             //prepare
          $reInB = $db->prepare($sqlToAddB);
          $reInB->bindValue(":idOfQuest", $numberOfQuestionnaire, PDO::PARAM_INT);
          $reInB->bindValue(":idQuest", $id1Quest, PDO::PARAM_INT);
          $reInB->bindValue(":question", $value, PDO::PARAM_STR);
-         $reInB->bindValue(":idFromUser", $_SESSION["user-connect"]["id"], PDO::PARAM_INT);
-         $reInB->bindValue(":idQuest", $numberOfQuestionnaire, PDO::PARAM_INT);
+         $reInB->bindValue(":idQuestUp", $numberOfQuestionnaire, PDO::PARAM_INT);
+         $reInB->bindValue(":identiQuest", $id1Quest, PDO::PARAM_INT);
+         $reInB->bindValue(":userConnect", $_SESSION["user-connect"]["id"], PDO::PARAM_INT);
          $reInB->execute();
          $id1Quest++;
       }
@@ -428,13 +429,9 @@ function updateQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Qu
                $good = 1;
             }
          }
-
-         if($numero ==4){
-            $numero = 1;
-         }
          
 
-         $sqlAddChoice = "UPDATE `choix_question` SET `id_questionnaire` = :idQuestionnaire, `quest_number` = :numberQuestion, `num_response` = :nmQuest, `quest_option` = :choix, `correct` = :bonneR  WHERE id_questionnaire = :questIdent AND id_from_user = :userConnect";
+         $sqlAddChoice = "UPDATE `choix_question` SET `id_questionnaire` = :idQuestionnaire, `quest_number` = :numberQuestion, `num_response` = :nmQuest, `quest_option` = :choix, `correct` = :bonneR  WHERE id_questionnaire = :questIdent AND quest_number = :upNum AND num_response = :numeroUp AND id_from_user = :userConnect";
 
          $querryPrepareChoice = $db->prepare($sqlAddChoice);
          $querryPrepareChoice->bindValue(":idQuestionnaire",$numberOfQuestionnaire,PDO::PARAM_INT);
@@ -443,10 +440,10 @@ function updateQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Qu
          $querryPrepareChoice->bindValue(":choix",$textChoix,PDO::PARAM_STR);
          $querryPrepareChoice->bindValue(":bonneR",$good,PDO::PARAM_INT);
          $querryPrepareChoice->bindValue(":questIdent",$numberOfQuestionnaire,PDO::PARAM_INT);
+         $querryPrepareChoice->bindValue(":upNum",$toChoix,PDO::PARAM_INT);
+         $querryPrepareChoice->bindValue(":numeroUp",$checkId,PDO::PARAM_INT);
          $querryPrepareChoice->bindValue(":userConnect",$_SESSION["user-connect"]["id"],PDO::PARAM_INT);
          $querryPrepareChoice->execute();
-         // $toChoix++;
-         $numero++;
       }
       header("Location: ../dashboard.php");
 
@@ -459,12 +456,13 @@ function updateQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Qu
 
 
 //function simulation quiz
-function simulQuiz($choiceUser, $process, $idQuestionnaire, $optionCatch, $db){
-   $sqlQuerry = "SELECT * FROM `choix_question` WHERE id_questionnaire = :qnb AND quest_number = :nbr AND quest_option = :opt AND correct = 1";
+function simulQuiz($choiceUser, $process, $idQuestionnaire, $db){
+   $sqlQuerry = "SELECT * FROM `choix_question` WHERE id_questionnaire = :qnb AND quest_number = :nbr AND quest_option = :opt AND correct = 1 AND id_from_user = :idCo";
    $sqlPrepare = $db->prepare($sqlQuerry);
    $sqlPrepare->bindValue(":qnb", $idQuestionnaire, PDO::PARAM_INT);
    $sqlPrepare->bindValue(":nbr", $process, PDO::PARAM_INT);
    $sqlPrepare->bindValue(":opt", $choiceUser, PDO::PARAM_STR);
+   $sqlPrepare->bindValue(":idCo", $_SESSION["user-connect"]["id"], PDO::PARAM_STR);
    if($sqlPrepare->execute()){
       $correctChoice = $sqlPrepare->fetch();
       var_dump($correctChoice);
@@ -487,12 +485,55 @@ function simulQuiz($choiceUser, $process, $idQuestionnaire, $optionCatch, $db){
     $sqlQuerry = "SELECT * FROM `questionnaire` WHERE id_of_questionnaire = :qnb AND id_from_user = :user ";
     $sqlPrepare = $db->prepare($sqlQuerry);
     $sqlPrepare->bindValue(":qnb", $idQuestionnaire, PDO::PARAM_INT);
-    $sqlPrepare->bindValue(":user", $_SESSION["user-connect"]['id'], PDO::PARAM_INT);
+    $sqlPrepare->bindValue(":user", $_SESSION["user-connect"]["id"], PDO::PARAM_INT);
     if($sqlPrepare->execute()){
        $correctChoice = $sqlPrepare->fetchAll();
        $total = count($correctChoice);
        if($process > $total){
            header("Location: ../end-simulation.php?id_quest=$idQuestionnaire");
+           exit;
+        }
+     }
+}
+
+/************************fonction play quiz*/
+// playQuiz($choiceUser, $process, $idQuest, $catchOption,$db)
+function playQuiz($choiceUser, $process, $idQuest, $idShare, $db){
+   $sqlQuerry = "SELECT * FROM `choix_question` WHERE id_questionnaire = :qnb AND quest_number = :nbr AND quest_option = :opt AND correct = 1 AND id_from_user = :userConnect";
+   $sqlPrepare = $db->prepare($sqlQuerry);
+   $sqlPrepare->bindValue(":qnb", $idQuest, PDO::PARAM_INT);
+   $sqlPrepare->bindValue(":nbr", $process, PDO::PARAM_INT);
+   $sqlPrepare->bindValue(":opt", $choiceUser, PDO::PARAM_STR);
+   $sqlPrepare->bindValue(":userConnect", $idShare, PDO::PARAM_INT);
+   if($sqlPrepare->execute()){
+      $correctChoice = $sqlPrepare->fetch();
+      var_dump($correctChoice);
+      if($correctChoice == false){
+         $process++;
+         // var_dump($correctChoice);
+         header("Location: ../questionnaire.php?id_quest=$idQuest&iU=$idShare&nbP=$process");
+         // exit;
+      }
+      else if($correctChoice["correct"] == 1){
+         $_SESSION["score"]++;
+         $process++;
+         // var_dump($correctChoice);
+         header("Location: ../questionnaire.php?id_quest=$idQuest&iU=$idShare&nbP=$process");
+                  // exit;
+              }
+    }
+
+
+    $sqlQuerry = "SELECT * FROM `questionnaire` WHERE id_of_questionnaire = :qnb AND id_from_user = :user ";
+    $sqlPrepare = $db->prepare($sqlQuerry);
+    $sqlPrepare->bindValue(":qnb", $idQuest, PDO::PARAM_INT);
+    $sqlPrepare->bindValue(":user", $idShare, PDO::PARAM_INT);
+    if($sqlPrepare->execute()){
+       $correctChoice = $sqlPrepare->fetchAll();
+       $total = count($correctChoice);
+      //  var_dump($total);
+       if($process > $total){
+           header("Location: ../end-simulation.php?id_quest=$idQuest");
            exit;
         }
      }

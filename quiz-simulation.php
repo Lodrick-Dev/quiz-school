@@ -28,26 +28,9 @@ $pro = 0;
 if(isset($_POST["btn-simulation"])){
     if(isset($_POST["choice_user"]) && !empty($_POST["choice_user"])){
         $choiceUser = strip_tags(htmlspecialchars($_POST["choice_user"]));
-        simulQuiz($choiceUser, $process, $idQuestionnaire, $optionCatch,$db);
+        simulQuiz($choiceUser, $process, $idQuestionnaire, $db);
     }
 }
-
-// var_dump($_SESSION["user-connect"]);
-// $choiceUser = "En Russief";
-// $sqlQuerry = "SELECT * FROM `choix_question` WHERE id_questionnaire = :qnb AND quest_number = :nbr AND quest_option = :opt AND correct = 1";
-//    $sqlPrepare = $db->prepare($sqlQuerry);
-//    $sqlPrepare->bindValue(":qnb", $idQuestionnaire, PDO::PARAM_INT);
-//    $sqlPrepare->bindValue(":nbr", $process, PDO::PARAM_INT);
-//    $sqlPrepare->bindValue(":opt", $choiceUser, PDO::PARAM_STR);
-//    if($sqlPrepare->execute()){
-//       $correctChoice = $sqlPrepare->fetch();
-//       var_dump($correctChoice);
-//       if($correctChoice == false){
-//      }
-//        else if($correctChoice["correct"] == 1){
-//            $_SESSION['score']++;
-//        }
-//    }
 ?>
 <section id="section-quiz-simulation">
     <h1>Simulation</h1>

@@ -21,6 +21,7 @@ require_once "./includ-global/nav.php";
 
 $sqlGoCatchThem = "SELECT * FROM `theme_quest` WHERE id_from_user = :id_actif_theme";
 $leUser = 12;
+$process = 1;
 
 $querryCatchThem = $db->prepare($sqlGoCatchThem);
 $querryCatchThem->bindValue(":id_actif_theme", $_SESSION['user-connect']['id'], PDO::PARAM_INT);
@@ -101,6 +102,7 @@ unset($_SESSION['score']);
                             </div>
                             <a href="./votre-questionnaire.php?id_quest=<?=$themeCatch[$i]['id_from_of_questionnaire']?>" class="link-watch-plus">Voir plus</a>
                             <a href="./delete-questionnaire.php?id-quest=<?=$themeCatch[$i]['id_from_of_questionnaire']?>&iU=<?=$themeCatch[$i]['id_from_user']?>">Supprimer</a>
+                            <a href="./questionnaire.php?id_quest=<?=$themeCatch[$i]['id_from_of_questionnaire']?>&iU=<?=$themeCatch[$i]['id_from_user']?>&nbP=<?=$process?>">Partager</a>
                         </div>
                     <?php
                      }
