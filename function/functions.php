@@ -347,10 +347,103 @@ function creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1
          $querryPrepareChoice = $db->prepare($sqlAddChoice);
          $querryPrepareChoice->bindValue(":idQuestionnaire",$numberOfQuestionnaire,PDO::PARAM_INT);
          $querryPrepareChoice->bindValue(":numberQuestion",$toChoix, PDO::PARAM_INT);
-         $querryPrepareChoice->bindValue(":nmQuest",$numero,PDO::PARAM_INT);
+         $querryPrepareChoice->bindValue(":nmQuest",$checkId,PDO::PARAM_INT);
          $querryPrepareChoice->bindValue(":choix",$textChoix,PDO::PARAM_STR);
          $querryPrepareChoice->bindValue(":bonneR",$good,PDO::PARAM_INT);
          $querryPrepareChoice->bindValue(":userCo",$_SESSION["user-connect"]["id"],PDO::PARAM_INT);
+         $querryPrepareChoice->execute();
+         // $toChoix++;
+         $numero++;
+      }
+      header("Location: ../dashboard.php");
+
+      $msgErreur ="";
+   }else{
+      $msgErreur = "Veuillez remplir tous les champs ...";
+   }
+   return $msgErreur;
+}
+
+//update questionnaire
+function updateQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1,$option1To1,$option2To1,$option3To1,$optionGoodTo1, $id2Quest,$quest2,$option1To2,$option2To2,$option3To2,$optionGoodTo2, $id3Quest,$quest3,$option1To3,$option2To3,$option3To3,$optionGoodTo3,$db){
+   if(isset($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1,$option1To1,$option2To1,$option3To1,$optionGoodTo1, $id2Quest,$quest2,$option1To2,$option2To2,$option3To2,$optionGoodTo2, $id3Quest,$quest3,$option1To3,$option2To3,$option3To3,$optionGoodTo3) && !empty($numberOfQuestionnaire ) && !empty($themeQuest) && !empty($descripQuest) && !empty($id1Quest) &&!empty($quest1) && !empty($option1To1) && !empty($option2To1) && !empty($option3To1) && !empty($optionGoodTo1) && !empty($id2Quest) &&!empty($quest2) && !empty($option1To2) && !empty($option2To2) && !empty($option3To2) && !empty($optionGoodTo2)  && !empty($id3Quest) &&!empty($quest3) && !empty($option1To3) && !empty($option2To3) && !empty($option3To3) && !empty($optionGoodTo3)){
+      $toChoix = $id1Quest;
+      $optionGoodTo1 = intVal($optionGoodTo1);
+      $optionGoodTo2 = intVal($optionGoodTo2);
+      $optionGoodTo3 = intVal($optionGoodTo3);
+      
+      $sqlToTheme = "UPDATE `theme_quest` SET `theme` = :them,`description` = :descript, `id_from_of_questionnaire` = :idFromOfQuest,`id_from_user`= :idFromUser WHERE id_from_of_questionnaire = :numQuest";
+      $sqlThemeAdd = $db->prepare($sqlToTheme);
+      $sqlThemeAdd->bindValue(":them",$themeQuest,PDO::PARAM_STR);
+      $sqlThemeAdd->bindValue(":descript",$descripQuest,PDO::PARAM_STR);
+      $sqlThemeAdd->bindValue(":idFromOfQuest",$numberOfQuestionnaire,PDO::PARAM_INT);
+      $sqlThemeAdd->bindValue(":idFromUser",$_SESSION["user-connect"]["id"],PDO::PARAM_INT);
+      $sqlThemeAdd->bindValue(":numQuest",$numberOfQuestionnaire,PDO::PARAM_INT);
+      $sqlThemeAdd->execute();
+
+      $questionsAdd = array($quest1, $quest2,$quest3);
+
+         //to inject questions
+      foreach($questionsAdd as $value){
+         $sqlToAddB = "UPDATE `questionnaire` SET `id_of_questionnaire` = :idOfQuest,`id_quest` = :idQuest,`question`= :question, `id_from_user`= :idFromUser WHERE id_of_questionnaire = :idQuest";
+            //prepare
+         $reInB = $db->prepare($sqlToAddB);
+         $reInB->bindValue(":idOfQuest", $numberOfQuestionnaire, PDO::PARAM_INT);
+         $reInB->bindValue(":idQuest", $id1Quest, PDO::PARAM_INT);
+         $reInB->bindValue(":question", $value, PDO::PARAM_STR);
+         $reInB->bindValue(":idFromUser", $_SESSION["user-connect"]["id"], PDO::PARAM_INT);
+         $reInB->bindValue(":idQuest", $numberOfQuestionnaire, PDO::PARAM_INT);
+         $reInB->execute();
+         $id1Quest++;
+      }
+            //inject réponse
+         $propositionsAdd = [
+         "$option1To1" => 1,
+         "$option2To1" => 2,
+         "$option3To1" => 3,
+         "$option1To2" => 1,
+         "$option2To2" => 2,
+         "$option3To2" => 3,
+         "$option1To3" => 1,
+         "$option2To3" => 2,
+         "$option3To3" => 3
+      ];
+
+      $numero = 1;
+      foreach($propositionsAdd as $textChoix => $checkId){
+         $good = 0;
+         if($textChoix === $option1To1 || $textChoix === $option2To1 || $textChoix === $option3To1){
+            $toChoix = 1;
+            if($checkId === $optionGoodTo1){
+               $good = 1;
+            }
+         }else if($textChoix === $option1To2 || $textChoix === $option2To2 || $textChoix === $option3To2){
+            $toChoix = 2;
+            if($checkId === $optionGoodTo2){
+               $good = 1;
+            }
+         }else if($textChoix === $option1To3 || $textChoix === $option2To3 || $textChoix === $option3To3){
+            $toChoix = 3;
+            if($checkId === $optionGoodTo3){
+               $good = 1;
+            }
+         }
+
+         if($numero ==4){
+            $numero = 1;
+         }
+         
+
+         $sqlAddChoice = "UPDATE `choix_question` SET `id_questionnaire` = :idQuestionnaire, `quest_number` = :numberQuestion, `num_response` = :nmQuest, `quest_option` = :choix, `correct` = :bonneR  WHERE id_questionnaire = :questIdent AND id_from_user = :userConnect";
+
+         $querryPrepareChoice = $db->prepare($sqlAddChoice);
+         $querryPrepareChoice->bindValue(":idQuestionnaire",$numberOfQuestionnaire,PDO::PARAM_INT);
+         $querryPrepareChoice->bindValue(":numberQuestion",$toChoix, PDO::PARAM_INT);
+         $querryPrepareChoice->bindValue(":nmQuest",$checkId,PDO::PARAM_INT);
+         $querryPrepareChoice->bindValue(":choix",$textChoix,PDO::PARAM_STR);
+         $querryPrepareChoice->bindValue(":bonneR",$good,PDO::PARAM_INT);
+         $querryPrepareChoice->bindValue(":questIdent",$numberOfQuestionnaire,PDO::PARAM_INT);
+         $querryPrepareChoice->bindValue(":userConnect",$_SESSION["user-connect"]["id"],PDO::PARAM_INT);
          $querryPrepareChoice->execute();
          // $toChoix++;
          $numero++;

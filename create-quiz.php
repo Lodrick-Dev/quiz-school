@@ -13,7 +13,6 @@ if(isset($_POST['choose-numb-quest-add'])){
     $nine = "neuf";
     $eleven = "douze";
     $valueSelect = strip_tags(htmlspecialchars($_POST['select-how-quest']));
-    var_dump($valueSelect);
     if($valueSelect == $three){
         $_SESSION['number-quest'] = $valueSelect;
     }else if($valueSelect == $six){
@@ -23,7 +22,6 @@ if(isset($_POST['choose-numb-quest-add'])){
     }else if($valueSelect == $eleven){
         $_SESSION['number-quest'] = $valueSelect;   
     }
-    var_dump($_SESSION['number-quest']);
 }
 
 //to add quest
@@ -55,63 +53,8 @@ if(isset($_POST['submit-creat-question'])){
 
     //function call
     $msgErreur = creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1,$option1To1,$option2To1,$option3To1,$optionGoodTo1, $id2Quest,$quest2,$option1To2,$option2To2,$option3To2,$optionGoodTo2, $id3Quest,$quest3,$option1To3,$option2To3,$option3To3,$optionGoodTo3,$db);
-    unset($_SESSION['number-quest']);
-
-    echo $optionGoodTo1;
-    echo $optionGoodTo2;
-    echo $optionGoodTo3;
+    // unset($_SESSION['number-quest']);
 }
-    if($_SESSION["choose"]){
-        header("Location: ./dashboard.php");
-    }
-
-var_dump($_SESSION['number-quest']);
-
-$numberOfQuestionnaire  = "boba";
-$themeQuest = "bobab";
-$descripQuest = "bobabc";
-$id1Quest = "bobabcde";
-$quest1 = "bobabcdef";
-
-$directors = array( "Alfred Hitchcock", "Stanley Kubrick", "Martin Scorsese", "Fritz Lang" );
-
-$valuetoAdd = array($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1);
-// var_dump($valuetoAdd);
-// var_dump($directors);
-// foreach($valuetoAdd as $key){
-//     echo $key ."<br>";
-// }
-$propositionsAdd = [
-    "optiona1" => 1,
-    "optionab1" => 2,
-    "optionar1" => 3,
-    "optiona2" => 1,
-    "optionad2" => 2,
-    "optionaq2" => 3,
-    "optionav3" => 1,
-    "optiona3" => 2,
-    "optionaz3" => 3
- ];
-
- $op1 = 1;
- $op2 = 2;
- $op3 = 3;
-
- foreach ($propositionsAdd as $key => $value) {
-     echo $key ." text et ". intVal($value) ."<br>";
-     $scoop = 0;
-     if($value === $op1){
-         $scoop = 1;
-     }
-     if($value === $op2){
-         $scoop = 2;
-     }
-     if($value === $op3){
-         $scoop = 3;
-     }
-     echo " <br> Ici $scoop <br>";
- }
- var_dump($propositionsAdd);
 ?>
 <section id="section-creat-quiz">
 <h1>Création de votre questionnaire</h1>
