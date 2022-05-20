@@ -4,6 +4,10 @@ define("DBUSER", "root");
 define("DBPASS", "");
 define("NAMEBASE", "quizschool");
 
+if(isset($_GET["token"]) && $_GET["token"] != $_SESSION["token"]){
+    die("Jeton de sécurité expiré...");
+}
+
 $dsn = "mysql:dbname=".NAMEBASE.";host=".DBHOST;
 
 try{

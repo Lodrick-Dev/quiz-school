@@ -55,11 +55,24 @@ if(isset($_POST['submit-creat-question'])){
     $msgErreur = creatingQuestion($numberOfQuestionnaire ,$themeQuest,$descripQuest,$id1Quest,$quest1,$option1To1,$option2To1,$option3To1,$optionGoodTo1, $id2Quest,$quest2,$option1To2,$option2To2,$option3To2,$optionGoodTo2, $id3Quest,$quest3,$option1To3,$option2To3,$option3To3,$optionGoodTo3,$db);
     // unset($_SESSION['number-quest']);
 }
+
+$sqlQuest = "SELECT * FROM `theme_quest` WHERE id_from_of_questionnaire";
+$nmQuest = $db->prepare($sqlQuest);
+if($nmQuest->execute()){
+    $catchAllCreat = $nmQuest->fetchAll();
+}
+
 ?>
 <section id="section-creat-quiz">
 <h1>Création de votre questionnaire</h1>
     <a href="<?=@$_SERVER["HTTP_REFERER"] ?>"> < Back</a>
     <a id="link-cancel" href="./dashboard.php">Annuler</a>
+    <?php
+    echo " <br> Numéro de questionnaire existant : ";
+    foreach ($catchAllCreat as $index) {
+        echo " - ". $index['id_from_of_questionnaire'];
+    }
+    ?>
     <div id="box-glob-creat-questions">
         <div id="box-to-form-select-numb">
             <form action="" method="post">

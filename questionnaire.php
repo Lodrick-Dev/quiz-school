@@ -6,6 +6,13 @@ $idUser = $_GET["iU"];
 $process = $_GET['nbP'];
 $titre_web = "Création - QUIZ-SCHOOL";
 
+//check if user not connect
+if(@$_SERVER["HTTP_REFERER"] != "./dashboard.php" && !$idQuest && !$idUser){
+    header("Location: ./connexion.php");
+}
+// $rul = "http://quiz-school/questionnaire.php?id_quest=1&iU=4&nbP=1";
+// var_dump(parse_url($rul));
+
 $sqlTheme = "SELECT * FROM `theme_quest` WHERE id_from_of_questionnaire = :idQ AND id_from_user = :idU";
 $sqlPrepare = $db->prepare($sqlTheme);
 $sqlPrepare->bindValue(":idQ", $idQuest, PDO::PARAM_INT);
@@ -36,7 +43,9 @@ if($sqlPrepare->execute() && $sqlPrepareQuest->execute() && $sqlPrepareOption->e
     // header("Location: ./dashboard.php");
 }
 // require_once "./treat/to-connexion.php";
+if(isset($_SESSION["user-connect"]["id"])){
 $idShare = $_SESSION["user-connect"]["id"];
+}
 require_once "./function/functions.php";
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
@@ -49,6 +58,7 @@ if(isset($_POST["btn-quest"])){
         $msgE = "Veuillez choisir sélectionner un choix";
     }
 }
+
 ?>
 <section id="section-questionnaire">
     <div class="div-glob">

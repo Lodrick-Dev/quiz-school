@@ -18,6 +18,8 @@ require_once "./treat/to-connexion.php";
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
 
+$rul = "http://quiz-school/questionnaire.php?id_quest=1&iU=4&nbP=1";
+var_dump(parse_url($rul));
 
 $sqlGoCatchThem = "SELECT * FROM `theme_quest` WHERE id_from_user = :id_actif_theme";
 $leUser = 12;
@@ -29,6 +31,7 @@ if($querryCatchThem->execute()){
    $themeCatch = $querryCatchThem->fetchAll();
 }
 unset($_SESSION['score']);
+var_dump($_SESSION["user-connect"]);
 ?>
 <section id="section-dashboard">
     <h1>TABLEAU DE BORD</h1>
@@ -101,8 +104,10 @@ unset($_SESSION['score']);
                                 <p><?=empty($themeCatch) ? "" : $themeCatch[$i]['description']?></p>
                             </div>
                             <a href="./votre-questionnaire.php?id_quest=<?=$themeCatch[$i]['id_from_of_questionnaire']?>" class="link-watch-plus">Voir plus</a>
-                            <a href="./delete-questionnaire.php?id-quest=<?=$themeCatch[$i]['id_from_of_questionnaire']?>&iU=<?=$themeCatch[$i]['id_from_user']?>">Supprimer</a>
-                            <a href="./questionnaire.php?id_quest=<?=$themeCatch[$i]['id_from_of_questionnaire']?>&iU=<?=$themeCatch[$i]['id_from_user']?>&nbP=<?=$process?>">Partager</a>
+
+                            <a href="./delete-questionnaire.php?id_quest=<?=$themeCatch[$i]['id_from_of_questionnaire']?>&iU=<?=$themeCatch[$i]['id_from_user']?>&token=<?=$_SESSION["token"]?>">Supprimer</a>
+
+                            <a href="./questionnaire.php?id_quest=<?=$themeCatch[$i]['id_from_of_questionnaire']?>&iU=<?=$themeCatch[$i]['id_from_user']?>&token=<?=$_SESSION["token"]?>&nbP=<?=$process?>" target="_blank">Partager</a>
                         </div>
                     <?php
                      }

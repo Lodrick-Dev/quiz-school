@@ -65,7 +65,8 @@ function inscript($newPseudo, $newMail, $newPassWord, $newConfirmePass, $db){
                                              "profil" => $last_user_add['profil_img'],
                                              "bio" => $last_user_add['biography'],
                                              "statut" => $last_user_add['statut_user'],
-                                             "date" => $last_user_add['creat_date']
+                                             "date" => $last_user_add['creat_date'],
+                                             "token" => md5(time()*rand(175.68))
                                           ];
                                           header("Location: ../dashboard.php");
                                        }
@@ -129,6 +130,10 @@ function connect($mailConnect, $passConnect, $db){
                      "statut" => $mailConnectChecked['statut_user'],
                      "date" => $mailConnectChecked['creat_date']
                   ];
+
+                  if(!isset($_SESSION["token"])){
+                     $_SESSION["token"] = md5(time() * rand(175,658));
+                 }
                   check_if_banned($db,true, true);
                   header("Location: ../dashboard.php");
                }
