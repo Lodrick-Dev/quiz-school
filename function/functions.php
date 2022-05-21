@@ -510,36 +510,67 @@ function playQuiz($choiceUser, $process, $idQuest, $idShare, $db){
    $sqlPrepare->bindValue(":nbr", $process, PDO::PARAM_INT);
    $sqlPrepare->bindValue(":opt", $choiceUser, PDO::PARAM_STR);
    $sqlPrepare->bindValue(":userConnect", $idShare, PDO::PARAM_INT);
-   if($sqlPrepare->execute()){
+
+   //
+   $sqlQuerryQ = "SELECT * FROM `questionnaire` WHERE id_of_questionnaire = :qnb AND id_from_user = :user ";
+   $sqlPrepareQ = $db->prepare($sqlQuerryQ);
+   $sqlPrepareQ->bindValue(":qnb", $idQuest, PDO::PARAM_INT);
+   $sqlPrepareQ->bindValue(":user", $idShare, PDO::PARAM_INT);
+
+   if($sqlPrepare->execute() && $sqlPrepareQ->execute()){
       $correctChoice = $sqlPrepare->fetch();
-      var_dump($correctChoice);
-      if($correctChoice == false){
-         $process++;
-         // var_dump($correctChoice);
-         header("Location: ../questionnaire.php?id_quest=$idQuest&iU=$idShare&nbP=$process");
-         // exit;
+
+      $correctChoiceQ = $sqlPrepareQ->fetchAll();
+         $total = count($correctChoiceQ);
+
+         if($correctChoice == false){
+            $process++;
+
+
+            if($process > $total){
+               $idQuest = rtrim(base64_encode($idQuest), '=');
+                  header("Location: ../end-simulation.php?id_quest=$idQuest");
+                  exit;
+               }
+
+
+            $idQuest = rtrim(base64_encode($idQuest), '=');
+            $idShare = rtrim(base64_encode($idShare), '=');
+            $process = rtrim(base64_encode($process), '=');
+            header("Location: ../questionnaire.php?id_quest=$idQuest&iU=$idShare&nbP=$process");
+            // exit;
+         }
+         else if($correctChoice["correct"] == 1){
+            $_SESSION["score"]++;
+            $process++;
+
+            if($process > $total){
+               $idQuest = rtrim(base64_encode($idQuest), '=');
+                  header("Location: ../end-simulation.php?id_quest=$idQuest");
+                  exit;
+               }
+
+            $idQuest = rtrim(base64_encode($idQuest), '=');
+            $idShare = rtrim(base64_encode($idShare), '=');
+            $process = rtrim(base64_encode($process), '=');
+            header("Location: ../questionnaire.php?id_quest=$idQuest&iU=$idShare&nbP=$process");
+                     // exit;
+               }
       }
-      else if($correctChoice["correct"] == 1){
-         $_SESSION["score"]++;
-         $process++;
-         // var_dump($correctChoice);
-         header("Location: ../questionnaire.php?id_quest=$idQuest&iU=$idShare&nbP=$process");
-                  // exit;
-              }
-    }
 
+   // $sqlQuerryQ = "SELECT * FROM `questionnaire` WHERE id_of_questionnaire = :qnb AND id_from_user = :user ";
+   // $sqlPrepareQ = $db->prepare($sqlQuerryQ);
+   // $sqlPrepareQ->bindValue(":qnb", $idQuest, PDO::PARAM_INT);
+   // $sqlPrepareQ->bindValue(":user", $idShare, PDO::PARAM_INT);
+   //    if($sqlPrepareQ->execute()){
 
-    $sqlQuerry = "SELECT * FROM `questionnaire` WHERE id_of_questionnaire = :qnb AND id_from_user = :user ";
-    $sqlPrepare = $db->prepare($sqlQuerry);
-    $sqlPrepare->bindValue(":qnb", $idQuest, PDO::PARAM_INT);
-    $sqlPrepare->bindValue(":user", $idShare, PDO::PARAM_INT);
-    if($sqlPrepare->execute()){
-       $correctChoice = $sqlPrepare->fetchAll();
-       $total = count($correctChoice);
-      //  var_dump($total);
-       if($process > $total){
-           header("Location: ../end-simulation.php?id_quest=$idQuest");
-           exit;
-        }
-     }
+   //       $correctChoiceQ = $sqlPrepareQ->fetchAll();
+   //       $total = count($correctChoiceQ);
+   //       // var_dump($total);
+   //       if($process > $total){
+   //       $idQuest = rtrim(base64_encode($idQuest), '=');
+   //          header("Location: ../end-simulation.php?id_quest=$idQuest");
+   //          exit;
+   //       }
+   //  }
 }

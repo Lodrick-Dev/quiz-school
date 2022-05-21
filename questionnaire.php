@@ -1,17 +1,10 @@
 <?php
 session_start();
 require_once "./includ-global/connectdatabase.php";
-$idQuest = $_GET["id_quest"];
-$idUser = $_GET["iU"];
-$process = $_GET['nbP'];
+$idQuest = base64_decode($_GET["id_quest"]);
+$idUser = base64_decode($_GET["iU"]);
+$process = base64_decode($_GET['nbP']);
 $titre_web = "Création - QUIZ-SCHOOL";
-
-//check if user not connect
-if(@$_SERVER["HTTP_REFERER"] != "./dashboard.php" && !$idQuest && !$idUser){
-    header("Location: ./connexion.php");
-}
-// $rul = "http://quiz-school/questionnaire.php?id_quest=1&iU=4&nbP=1";
-// var_dump(parse_url($rul));
 
 $sqlTheme = "SELECT * FROM `theme_quest` WHERE id_from_of_questionnaire = :idQ AND id_from_user = :idU";
 $sqlPrepare = $db->prepare($sqlTheme);
@@ -59,6 +52,18 @@ if(isset($_POST["btn-quest"])){
     }
 }
 
+
+
+$sqlQuerryQ = "SELECT * FROM `questionnaire` WHERE id_of_questionnaire = :qnb AND id_from_user = :user ";
+$sqlPrepareQ = $db->prepare($sqlQuerryQ);
+$sqlPrepareQ->bindValue(":qnb", $idQuest, PDO::PARAM_INT);
+$sqlPrepareQ->bindValue(":user", $idShare, PDO::PARAM_INT);
+   if($sqlPrepareQ->execute()){
+
+      $correctChoiceQ = $sqlPrepareQ->fetchAll();
+      $total = count($correctChoiceQ);
+      echo $total;
+   }
 ?>
 <section id="section-questionnaire">
     <div class="div-glob">
@@ -74,7 +79,7 @@ if(isset($_POST["btn-quest"])){
         </div>
         <?php foreach($catchQuest as $quest):?>
         <form action="" method="post" class="<?= $process == $quest["id_quest"] ? "visi" : "invi" ?>">
-            <h2><?= $quest["question"] ?></h2>
+            <h2><?= "Q".$quest["id_quest"]. "-".$quest["question"] ?></h2>
             <div id="box-glob-of-div-n-input">
                 <?php
                 $idQuest = $quest["id_quest"];

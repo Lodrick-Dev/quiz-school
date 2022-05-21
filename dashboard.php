@@ -18,9 +18,6 @@ require_once "./treat/to-connexion.php";
 require_once "./includ-global/head.php";
 require_once "./includ-global/nav.php";
 
-$rul = "http://quiz-school/questionnaire.php?id_quest=1&iU=4&nbP=1";
-var_dump(parse_url($rul));
-
 $sqlGoCatchThem = "SELECT * FROM `theme_quest` WHERE id_from_user = :id_actif_theme";
 $leUser = 12;
 $process = 1;
@@ -107,7 +104,7 @@ var_dump($_SESSION["user-connect"]);
 
                             <a href="./delete-questionnaire.php?id_quest=<?=$themeCatch[$i]['id_from_of_questionnaire']?>&iU=<?=$themeCatch[$i]['id_from_user']?>&token=<?=$_SESSION["token"]?>">Supprimer</a>
 
-                            <a href="./questionnaire.php?id_quest=<?=$themeCatch[$i]['id_from_of_questionnaire']?>&iU=<?=$themeCatch[$i]['id_from_user']?>&token=<?=$_SESSION["token"]?>&nbP=<?=$process?>" target="_blank">Partager</a>
+                            <a href="./questionnaire.php?id_quest=<?=rtrim(base64_encode($themeCatch[$i]['id_from_of_questionnaire']), '=')?>&iU=<?= rtrim(base64_encode($themeCatch[$i]['id_from_user']), '=')?>&nbP=<?=rtrim(base64_encode($process), '=')?>" target="_blank">Partager</a>
                         </div>
                     <?php
                      }
