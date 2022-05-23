@@ -511,13 +511,19 @@ function playQuiz($choiceUser, $process, $idQuest, $idShare, $db){
    $sqlPrepare->bindValue(":opt", $choiceUser, PDO::PARAM_STR);
    $sqlPrepare->bindValue(":userConnect", $idShare, PDO::PARAM_INT);
 
-   //
+   //choice checked
    $sqlQuerryQ = "SELECT * FROM `questionnaire` WHERE id_of_questionnaire = :qnb AND id_from_user = :user ";
    $sqlPrepareQ = $db->prepare($sqlQuerryQ);
    $sqlPrepareQ->bindValue(":qnb", $idQuest, PDO::PARAM_INT);
    $sqlPrepareQ->bindValue(":user", $idShare, PDO::PARAM_INT);
 
-   if($sqlPrepare->execute() && $sqlPrepareQ->execute()){
+   //table played
+   $sqlPlaying = "UPDATE `played` SET process = :process WHERE id_user = :idPlaying";
+   $sqlPreparePlaying = $db->prepare($sqlPlaying);
+   $sqlPreparePlaying->bindvalue(":process",$process,PDO::PARAM_INT);
+   $sqlPreparePlaying->bindvalue(":idPlaying",10,PDO::PARAM_INT);
+
+   if($sqlPrepare->execute() && $sqlPrepareQ->execute() && $sqlPreparePlaying->execute()){
       $correctChoice = $sqlPrepare->fetch();
 
       $correctChoiceQ = $sqlPrepareQ->fetchAll();
@@ -557,20 +563,4 @@ function playQuiz($choiceUser, $process, $idQuest, $idShare, $db){
                      // exit;
                }
       }
-
-   // $sqlQuerryQ = "SELECT * FROM `questionnaire` WHERE id_of_questionnaire = :qnb AND id_from_user = :user ";
-   // $sqlPrepareQ = $db->prepare($sqlQuerryQ);
-   // $sqlPrepareQ->bindValue(":qnb", $idQuest, PDO::PARAM_INT);
-   // $sqlPrepareQ->bindValue(":user", $idShare, PDO::PARAM_INT);
-   //    if($sqlPrepareQ->execute()){
-
-   //       $correctChoiceQ = $sqlPrepareQ->fetchAll();
-   //       $total = count($correctChoiceQ);
-   //       // var_dump($total);
-   //       if($process > $total){
-   //       $idQuest = rtrim(base64_encode($idQuest), '=');
-   //          header("Location: ../end-simulation.php?id_quest=$idQuest");
-   //          exit;
-   //       }
-   //  }
 }

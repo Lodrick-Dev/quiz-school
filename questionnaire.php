@@ -58,7 +58,13 @@ $sqlQuerryQ = "SELECT * FROM `questionnaire` WHERE id_of_questionnaire = :qnb AN
 $sqlPrepareQ = $db->prepare($sqlQuerryQ);
 $sqlPrepareQ->bindValue(":qnb", $idQuest, PDO::PARAM_INT);
 $sqlPrepareQ->bindValue(":user", $idShare, PDO::PARAM_INT);
-   if($sqlPrepareQ->execute()){
+
+//player playing
+$sqlPlaying = "INSERT INTO `played` (id_user) VALUES (:idPlayer)";
+$sqlPlayer = $db->prepare($sqlPlaying);
+$sqlPlayer->bindValue(":idPlayer", 10, PDO::PARAM_INT);
+
+   if($sqlPrepareQ->execute() && $sqlPlayer->execute()){
 
       $correctChoiceQ = $sqlPrepareQ->fetchAll();
       $total = count($correctChoiceQ);

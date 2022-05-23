@@ -57,6 +57,7 @@ if(isset($_POST['submit-creat-question'])){
 }
 
 $sqlQuest = "SELECT * FROM `theme_quest` WHERE id_from_of_questionnaire";
+
 $nmQuest = $db->prepare($sqlQuest);
 if($nmQuest->execute()){
     $catchAllCreat = $nmQuest->fetchAll();
