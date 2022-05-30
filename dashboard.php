@@ -28,7 +28,7 @@ if($querryCatchThem->execute()){
    $themeCatch = $querryCatchThem->fetchAll();
 }
 unset($_SESSION['score']);
-var_dump($_SESSION["user-connect"]);
+// var_dump($_SESSION["user-connect"]);
 ?>
 <section id="section-dashboard">
     <h1>TABLEAU DE BORD</h1>

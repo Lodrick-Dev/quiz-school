@@ -20,11 +20,11 @@ if(isset($_POST['connect-me'])){
 //    checkMdp();
    $msgErreur = connect($mailConnect, $passConnect, $db);
 }
-var_dump($_SESSION["user-connect"]);
+// var_dump($_SESSION["user-connect"]);
 
-$mok = "manual/fr/function.urlencode.php";
-sha1($mok);
-$linkactu = $_GET["connexion"];
+// $mok = "manual/fr/function.urlencode.php";
+// sha1($mok);
+// $linkactu = $_GET["connexion"];
 ?>
 <section id="section-connect">
     <h1>CONNEXION</h1>
@@ -42,7 +42,6 @@ $linkactu = $_GET["connexion"];
         <div id="box-link-to-sub-on-connect-page">
             <a href="./inscription.php">Pas de compte ? S'inscrire</a>
             <a href="./ask-change-password.php">Mot de passe oublié ?</a>
-            <a href="https://wa.me/0768107922/?text=Hello badgyal <?=$linkactu?>" target="_blank">Mot de passe oublié ?</a>
         </div>
     </form>
 </section>

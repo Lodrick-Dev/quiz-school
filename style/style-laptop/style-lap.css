@@ -1060,7 +1060,50 @@ main > div > #img-first{
     border-radius: 3px;
     border: none;
 }
-
+/*****contact section*/
+.contact-section{
+    padding: 40px;
+}
+.sous-box-contact{
+    width: 50%;
+    margin: 10px auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.sous-box-contact > h1{
+    text-align: center;
+    margin: 10px 0px;
+}
+.sous-box-contact > form{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.sous-box-contact > form > div{
+    width: 100%;
+    margin: 5px 0px;
+}
+.sous-box-contact > form > div > input{
+    width: 100%;
+    padding: 5px;
+    font-size: 1em;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+}
+.sous-box-contact > form > div > textarea{
+    width: 100%;
+    padding: 5px;
+    font-size: 1.4em;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+}
 /********************debut footer*/
 footer{
     height: 20vh;
